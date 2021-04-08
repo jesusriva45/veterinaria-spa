@@ -1,0 +1,80 @@
+<ng-template class="modal fade" tabindex="-1" aria-labelledby="exampleModalLabel" aria-hidden="true" #mymodal let-modal>
+    <div class="modal-dialog">
+        <div class="modal-content">
+            <div class="modal-header">
+
+                <h4 class="modal-title" id="modal-basic-title">Bootstrap Modal</h4>
+
+                <button type="button" class="close" aria-label="Close" (click)="modal.dismiss('Cross click')">
+
+      <span aria-hidden="true">×</span>
+
+    </button>
+
+            </div>
+
+            <div class="modal-body">
+
+                <form id="form-usuario" #formUsuario="ngForm" (ngSubmit)="insert(formUsuario)" class="row container me-auto ms-auto justify-content-center">
+
+
+                    <input class="form-usuario" id="usuarioId" name="nombre" [(ngModel)]="usuario.id" placeholder="" />
+
+                    <h3 class="col-12 d-flex justify-content-start m-4">EDITAR INFORMACION</h3>
+
+                    <div class="image-upload col-4 d-block p-5">
+                        <img class="rounded-circle w-75" src="../../../../assets/img/300x300px.png" alt="">
+
+                        <label for="file-input" class="w-100">                    
+                    <svg xmlns="http://www.w3.org/2000/svg" xmlns:xlink="http://www.w3.org/1999/xlink" width="60.048" height="60.048" viewBox="0 0 1080 1080">
+                        <image alt ="Click aquí para subir tu foto" title ="Click aquí para subir tu foto" x="73" y="220" width="936" height="640" xlink:href="data:img/png;base64,iVBORw0KGgoAAAANSUhEUgAAADQAAAAkCAYAAADGrhlwAAAEXElEQVRYhd2Ze4xeQxjGf1uS1m41kRXqVht3VsUlaVPRVoWWuMU1IqoV9Q/LH4h/xB+CVEo0ITRIio1U2qoq61YRiUupa6JIbInWWpruqq5YglKZ5jnN03HO+c75vvPZ8CRf8s6ZmTPznJl532fer+Wx7h5SMAlYm1YR4UlgdvRsN6Af2LdA/6px66iMF55UcKATU55dOEJkAjp3z6gYNvsb4A0r7wPMlL01pe91Zn8GfFzBRPNwhHZUwE9ZhPrNfh7osnJY1T9lD0f99gKmW/ksoK95XHbgEmCZ7O2BUKdYOk41O2yr8618jNkHARdY+TKz3/8XyAS0eyEQ+rRGhynAsxl1RwHPZNTdXd/8SmMXP5DlFBrFthyiTYWfoe+BryoY7Dfg3pEgQ0ToKeCmJo51AjADOA7YG/gZ6AXeBt4EfqliECc0pooXpmCeXPnxOW02A48DC4AfGhnMz9CPjbwoBSG4vgY8WoMMim23AOuB8xoZ1FdoKnA5MABsUizaUud7j9RWao+eh5i2DvgOGCcvGULEBNWHOLZKK/pQo4Sm6ZdgWAP3ieAg8ArwYo13jk0h84gcxfqMOVwLzAda9exB4GvgpUYIxWgDDtcvwQ3AxBqxa1lEJkTyp3PaBxd/P/Cctughev6Ctu1AGUJ+hoLLfhX4PGiinD5H59RNkdxJMCciE1bvUuBm4JpIoWwAJps+bAHuK0MmJrRCorNTe/owDXB2FJ9i/eZwdRDOS7eVLwa+BJYC92gbfgE8YG0Go+vIFXIYdRHa0+whkXhPZ6aIJtsvOoOuus8BlmdcK7oi4j3Rlr6owNg74YRactrtUeBdrrLX2kcYHW274DkXKZgmmB31X2L2jAJj70SVWs5V+IdmzxQp5DUnyqtNkyNIMM/sj8zev8wkqiQ01uwhs/32u0KkEiww+2CzvU1bmUlUSegPs11GfWv25KjPLLP9I4wz+/cyk8iLQ2Wxwdp77PIszCTFqSVSCbdZ3SqzO80eLDOPKlfoLbNPs4+1SW46QQi0K6UMEoSPsdjKruf8PNZEUULbCrRZZ9urVWIzQbCfyOjXKz33l8oHKPYlyFMZ/0BRtT06p85xh9l3AR1Wngucq2vCB5I210t5bLR2y83+RL/C8DMUkiFXSyV0KAi26zJ2YEFyIfrfDoxX+XWdm0SP9URnKsbDkk8JunLapsIJzYq8ThaGatSHROMa2R3ainOk1LMwQWTOtPqFUfAtTSgPw9qSq6OkYxreUeBM7jNhpV+W8A2B9F2pheDajwVOB66MVj5kmW4sSyYm1C+PMqDAtlFZ0z4922oJxlpYpI+wWLnugDP0q4Vwxq6qh0xMaGnFSZJurcZ8bcNaCIf/zsgplEazkyS9UssnS3En1+02pbs2K8O6Wh+0YTihqpMkjjXmKKqGS6tdCE2vx02WwHatyq86i6PkCMbIzru+5GFqFqFT9Psvo7VZue2Rwo7/h0LC4tD/AZktwMK/AYg22ha43FwEAAAAAElFTkSuQmCC"/>
+                      </svg>
+                </label>
+
+                        <input id="file-input" type="file" />
+                        <label id="fichero" for="file-input" class="my-btn btn-danger"></label><br>
+                        <label>Subir maximo foto de 50KB</label>
+                    </div>
+
+
+
+                    <div class="col-6 p-5">
+                        <div class="form-group">
+                            <label for="nombre">Nombre Completo</label> <input class="" id="" name="nombre" [(ngModel)]="usuario.nombres" placeholder="" />
+                        </div>
+
+                        <div class="form-group  col-12">
+                            <label>Apellido completo</label> <input class="" id="" [(ngModel)]="usuario.apellidos" name="apellidos" placeholder="" />
+                        </div>
+                        {{ titulo }}
+
+                        <div class="form-group  col-12">
+                            <label>Email </label> <input class="" id="" [(ngModel)]="usuario.email" name="email" placeholder="" />
+                        </div>
+
+                        <div class="form-group  col-12">
+                            <label> Fecha de Nacimiento</label> <input class="" id="" [(ngModel)]="usuario.fecha_nac" name="fecha_nac" placeholder="" />
+                        </div>
+
+                    </div>
+
+
+
+
+                    <div class="col-12 btn-submit just">
+                        <button type="" class="cancel btn m-4" data-bs-dismiss="modal">Cancelar</button>
+
+                        <button type="submit" class="acept btn m-4" (click)="modal.close('Save click')">Aceptar</button>
+                    </div>
+                </form>
+
+            </div>
+
+            <div class="modal-footer">
+
+
+
+            </div>
+        </div>
+    </div>
+</ng-template>

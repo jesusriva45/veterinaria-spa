@@ -1,0 +1,54 @@
+form>div>div {
+    padding-bottom: 10%;
+    padding-right: 0%;
+}
+
+form>div>div>input {
+    outline: none;
+    color: #024059;
+    border: none;
+    border-bottom: 1px solid #024059;
+    width: 85%;
+    display: flex;
+}
+
+.btn-submit {
+    display: flex;
+    justify-content: flex-end;
+}
+
+.btn-submit>button {
+    border-radius: 25px 25px 25px 25px;
+    border: #9FA2B4 1px solid;
+    width: 10%;
+    color: #9FA2B4;
+}
+
+.btn-submit>button.cancel {
+    border-radius: 25px 25px 25px 25px;
+    border: #9FA2B4 1px solid;
+    width: 10%;
+    background-color: #EAEAEA;
+    color: #9FA2B4;
+}
+
+.btn-submit>button:hover {
+    cursor: pointer;
+    background-color: #024059;
+    color: #F7F8FC;
+}
+
+
+/***************** FILE FOTO ************************************/
+
+.image-upload>input {
+    display: none;
+}
+
+.image-upload>label>svg:hover {
+    cursor: pointer;
+}
+
+.image-upload>label>svg>img {
+    cursor: pointer;
+}

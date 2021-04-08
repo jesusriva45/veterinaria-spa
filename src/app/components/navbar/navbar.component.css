@@ -1,0 +1,18 @@
+.navbar {
+    z-index: 100;
+    width: 100%;
+}
+
+.nav-item {
+    margin-right: 0.5%;
+    width: auto;
+}
+
+.nav-item>a {
+    width: auto;
+}
+
+.active {
+    color: white;
+    font: bolder;
+}
