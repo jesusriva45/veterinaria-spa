@@ -13,14 +13,25 @@
                 <li class="nav-item" routerLinkActive="active">
                     <a class="nav-link" routerLink="inicio">Inicio</a>
                 </li>
+
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link">Nuestros Productos</a>
+                    <a class="nav-link" routerLink="productos">Nuestros Productos</a>
                 </li>
+
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link">Nuestros Servicios</a>
+                    <a class="nav-link" routerLink="usuarios"> Crud de Usuarios</a>
                 </li>
+
                 <li class="nav-item" routerLinkActive="active">
-                    <a class="nav-link" routerLink="usuarios"> Registrate</a>
+                    <a class="nav-link" routerLink="historia-clinica"> Historial de Mascotas</a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLink="registro-cliente"> Registrarse</a>
+                </li>
+
+                <li class="nav-item" routerLinkActive="active">
+                    <a class="nav-link" routerLink="registro-mascota"> Registra a tu Mascota</a>
                 </li>
 
                 <li class="nav-item" routerLinkActive="active">
@@ -31,8 +42,8 @@
                          Agregar
                     </a>
                     <ul class="dropdown-menu dropdown-menu-xl-end " aria-labelledby="navbarDropdown">
-                        <li><a class="dropdown-item" href="NuevoProducto.html">Productos</a></li>
-                        <li><a class="dropdown-item" href="NuevoServicio.html">Servicios</a></li>
+                        <li><a class="dropdown-item" routerLink="crud-producto">Productos</a></li>
+                        <li><a class="dropdown-item" routerLink="crud-servicio">Servicios</a></li>
                     </ul>
                 </li>
 

@@ -12,8 +12,15 @@ export class UsuarioService {
 
   private urlEndPoint: string = 'http://localhost:8080/api/usuarios';
 
-  private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json'})
+  private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json', 
+'Accept': 'application/json',
+'Access-Control-Allow-Origin':'http://localhost:8080',
+'Access-Control-Allow-Credentials': 'true',
+'GET': 'POST'})
 
+
+
+  
 
 
   constructor(private http: HttpClient) { }
@@ -32,4 +39,21 @@ export class UsuarioService {
   insert(usuario: Usuario): Observable<Usuario>{
     return this.http.post<Usuario>(this.urlEndPoint, usuario ,{headers : this.httpHeaders})    
   }
+
+
+  getUsuario(id): Observable<Usuario>{
+    return this.http.get<Usuario>(`${this.urlEndPoint}/${id}`)  
+  }
+
+  
+  delete(id:number): Observable<Usuario>{
+    return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers : this.httpHeaders})  
+  }
+
+
+
+
+
+
+
 }

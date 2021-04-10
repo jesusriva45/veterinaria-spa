@@ -11,7 +11,7 @@ form>div>div {
     padding-right: 0%;
 }
 
-form>div>div>input {
+.form-input {
     outline: none;
     color: #024059;
     border: none;
@@ -51,4 +51,8 @@ form>div>div>input {
 
 .image-upload>label>svg>img {
     cursor: pointer;
+}
+
+.modal-dialog {
+    width: 500000px
 }
