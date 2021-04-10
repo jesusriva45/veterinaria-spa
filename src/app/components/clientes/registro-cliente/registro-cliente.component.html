@@ -1,9 +1,9 @@
-<section class="mt-auto mb-auto">
+<section class="mt-5">
     <h4 class="text-center registrateh4">
         ¡Registrate!
     </h4>
     <div class="row col-12">
-        <div class="col-md-6 me-auto ms-auto ">
+        <div class="col-md-6  me-auto ms-auto ">
 
             <form action="registraCliente justify-content-center">
                 <div class="m-2 mb-4">
@@ -12,10 +12,15 @@
 
                 </div>
 
-                <div class="m-2 mb-4">
+                <div class="form-group m-2 mb-4 ">
+                    <div class="input-group">
+                        <input class="form-control" placeholder="yyyy-mm-dd" name="dp" [(ngModel)]="model" ngbDatepicker #d="ngbDatepicker">
+                        <div class="input-group-append">
 
-                    <input type="email" class="form-control" id="exampleInputEmail1" aria-describedby="emailHelp">
+                            <button class="btn btn-outline-secondary calendar" (click)="d.toggle()" type="button"><i class='far'>&#xf073;</i></button>
 
+                        </div>
+                    </div>
                 </div>
 
                 <div class="m-2 mb-4">
