@@ -52,7 +52,3 @@ form>div>div {
 .image-upload>label>svg>img {
     cursor: pointer;
 }
-
-.modal-dialog {
-    width: 500000px
-}

@@ -1,28 +1,33 @@
 <div class="container mt-5">
 
-    <div class="container">
+    <div class="container row col-12">
 
-        <form class="w-100">
-            <div class="row col-12 form-group d-inline-flex align-items-center">
-                <label class="col-3" for="cars">Filtrar por Nom. Cliente: </label>
+        <form class="col-12">
+            <div class="form-group d-inline-flex align-items-center col-6">
+                <label class="w-50" for="cars">Filtrar por Nom. Cliente: </label>
 
-                <input class="col-4" type="text">
-                <button class="btn btn-info ml-4" type="">Buscar</button>
+                <input class="w-50" type="text">
+                <div class="btn-group ms-4" role="group" aria-label="Basic example">
+                    <button type="" class="btn btn-info" type="">Buscar</button>
+                </div>
             </div>
         </form>
     </div>
-    <div class="container ml-2 mb-5 w-25">
-        <input class="form-control" id="nomCliente " type="text " value="Jesus Rivadeneyra" disabled>
+    <div class="container float-start">
+        <input class="form-control float-start w-25 mt-3 mb-5" id="nomCliente " type="text " value="Jesus Rivadeneyra" disabled>
     </div>
 
-    <div class="container ">
 
-        <form class="w-100">
-            <div class="row col-12 form-group d-inline-flex align-items-center">
-                <label class="col-3" for="cars">Filtrar por Nom. Mascota: </label>
+    <div class="container mb-5">
 
-                <input class="sub_input col-4" type="text">
-                <button class="btn btn-info ml-4" type="">Buscar</button>
+        <form class="col-12">
+            <div class="form-group d-inline-flex align-items-center col-6">
+                <label class="w-50" for="cars">Filtrar por Nom. Mascota: </label>
+
+                <input class="w-50" type="text">
+                <div class="btn-group ms-4" role="group" aria-label="Basic example">
+                    <button type="" class="btn btn-info" type="">Buscar</button>
+                </div>
             </div>
         </form>
     </div>
@@ -45,7 +50,7 @@
                 <td class="row-data">Gato</td>
                 <td class="row-data">Marrón</td>
                 <td class="row-data">9</td>
-                <td><button class="btn btn-info btn-historial">ver</button></td>
+                <td><button class="btn btn-info btn-historial" (click)="mostrarHistorial($event)">ver</button></td>
             </tr>
             <tr id="2">
                 <td scope="row ">2</td>
@@ -53,7 +58,7 @@
                 <td class="row-data">Perro</td>
                 <td class="row-data">Blanco con Negro</td>
                 <td class="row-data">10</td>
-                <td><button class="btn btn-info btn-historial">ver</button></td>
+                <td><button class="btn btn-info btn-historial" (click)="mostrarHistorial($event)">ver</button></td>
 
             </tr>
             <tr id="3">
@@ -63,7 +68,7 @@
                 <td class="row-data">Negro</td>
 
                 <td class="row-data">5</td>
-                <td><button class="btn btn-info btn-historial">ver</button></td>
+                <td><button class="btn btn-info btn-historial" (click)="mostrarHistorial($event)">ver</button></td>
             </tr>
         </tbody>
     </table>
@@ -74,8 +79,8 @@
 
 
 
-    <div class="container mb-5 "> Historial de <input id="nomMascota" value="" class="col-4 sub_input display-4" type="text" disabled>
-        <button class="btn btn-info mt-5" data-toggle="modal" data-target="#modalContactForm">agregar nueva historia...</button>
+    <div class="container mb-5 "> Historial de <input id="nomMascota" value="Michifus" class="col-4 sub_input display-4" type="text" disabled>
+        <button class="btn btn-info mt-5" data-toggle="modal" data-bs-target="#modalContactForm">agregar nueva historia...</button>
     </div>
 
     <table class="table text-center">
@@ -84,7 +89,8 @@
                 <th scope="col ">Codigo</th>
                 <th scope="col ">Fecha Creación</th>
                 <th scope="col ">Fecha Modificación</th>
-                <th scope="col ">Editar</th>
+                <th scope="col "></th>
+                <th scope="col "></th>
 
             </tr>
         </thead>
@@ -93,15 +99,16 @@
                 <th scope="row ">1</th>
                 <td>24/01/2020</td>
                 <td>24/02/2020</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#modalContactForm">ver</button> <button class="btn btn-info" data-toggle="modal" data-target="#modalContactForm">editar</button></td>
-                <td></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalContactForm">ver</button></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalContactForm">editar</button></td>
             </tr>
             <tr>
                 <th scope="row ">2</th>
                 <td>24/01/2020</td>
                 <td>24/02/2020</td>
 
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#modalContactForm">ver</button> <button class="btn btn-info" data-toggle="modal" data-target="#modalContactForm">editar</button></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalContactForm">ver</button></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalContactForm">editar</button></td>
 
             </tr>
             <tr>
@@ -109,7 +116,8 @@
 
                 <td>24/01/2020</td>
                 <td>24/02/2020</td>
-                <td><button class="btn btn-info" data-toggle="modal" data-target="#modalContactForm">ver</button> <button class="btn btn-info" data-toggle="modal" data-target="#modalContactForm">editar</button></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalContactForm">ver</button></td>
+                <td><button class="btn btn-info" data-bs-toggle="modal" data-bs-target="#modalContactForm">editar</button></td>
             </tr>
         </tbody>
     </table>
@@ -121,7 +129,7 @@
         <div class="modal-content">
             <div class="modal-header text-center">
                 <h4 class="modal-title w-100 font-weight-bold">Historial</h4>
-                <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
           <span aria-hidden="true">&times;</span>
         </button>
             </div>

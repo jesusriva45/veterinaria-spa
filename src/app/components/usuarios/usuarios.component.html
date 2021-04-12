@@ -3,7 +3,7 @@
     Agregar Usuario
   </button*-->
 
-    <input type="button" value="Agregar Usuario" class="btn btn-primary crud" value="Agregar Usuario" (click)="openModalCrud(mymodal,0,'agregar')">
+    <input type="button" value="Agregar Usuario" class="btn btn-primary crud" value="Agregar Usuario" (click)="openModalCrud(mymodal,'agregar')">
 
     <div class="card border-primary mb-5 container mt-5">
 
@@ -37,21 +37,11 @@
                         <td>{{ usuario.email }}</td>
                         <td>{{ usuario.fecha_nac }}</td>
                         <td>{{ usuario.fecha_reg }}</td>
-                        <td><input type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,usuario.id_usuario,'detalle')"></td>
-                        <td><input type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,usuario.id_usuario,'editar')"></td>
+                        <td><input type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,'detalle',usuario.id_usuario)"></td>
+                        <td><input type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,'editar',usuario.id_usuario)"></td>
                         <td><input type="button" class="btn btn-danger crud" value="Eliminar"></td>
                     </tr>
-                    <tr *ngFor="let usuario of usuarios; let i = index">
-                        <th>{{ usuario.id_usuario }}</th>
-                        <td>{{ usuario.nombres }}</td>
-                        <td>{{ usuario.apellidos }}</td>
-                        <td>{{ usuario.email }}</td>
-                        <td>{{ usuario.fecha_nac }}</td>
-                        <td>{{ usuario.fecha_reg }}</td>
-                        <td><input type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,usuario.id_usuario,'detalle')"></td>
-                        <td><input type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,usuario.id_usuario,'editar')"></td>
-                        <td><input type="button" class="btn btn-danger crud" value="Eliminar"></td>
-                    </tr>
+
                 </tbody>
             </table>
         </div>
@@ -169,11 +159,11 @@
 
                         <div class="col-12 btn-submit">
 
-                            <button type="button" class="close cancel btn m-4" aria-label="Close" (click)="modal.dismiss()">Cancelar</button>
+                            <button type="button" id="Guerra" class="cancel btn  m-4" aria-label="Close" (click)="cerrarmodal()">Cancelar</button>
 
                             <!--button type="" class="cancel btn m-4" data-bs-dismiss="modal">Cancelar</button-->
 
-                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(usuario.id_usuario == 0) else elseBlock">Registrar</button>
+                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(usuario.id_usuario == null) else elseBlock">Registrar</button>
 
                             <ng-template #elseBlock>
                                 <button type="" role="button" class="acept btn m-4">Actualizar</button>

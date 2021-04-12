@@ -1,5 +1,9 @@
-import { NgModule } from '@angular/core';
+import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
+
+import * as mdb from 'mdb-ui-kit'; // lib
+import { Input } from 'mdb-ui-kit'; // module
+
 
 
 import { AppRoutingModule } from './app-routing.module';
@@ -14,6 +18,8 @@ import { RouterModule } from '@angular/router'
 import { ROUTES } from './app.routes';
 import { FormComponent } from './components/usuarios/form/form.component';
 import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+
+import { CommonModule } from '@angular/common';
 
 
 
@@ -33,6 +39,8 @@ import { ClientesComponent } from './components/clientes/clientes.component';
 import { RegistroClienteComponent } from './components/clientes/registro-cliente/registro-cliente.component';
 import { RegistroMascotaComponent } from './components/mascotas/registro-mascota/registro-mascota.component';
 import { PedidosComponent } from './components/pedidos/pedidos.component';
+import { MdbModule } from 'mdb-angular-ui-kit';
+import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
 
 
@@ -65,12 +73,17 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
     FormsModule,
     ReactiveFormsModule,
     RouterModule.forRoot( ROUTES , {onSameUrlNavigation: 'reload'}),
-    NgbModule
+    NgbModule,
+    MdbModule,
+    BrowserAnimationsModule,
+    CommonModule,
+    
   ],
   providers: [NgbModule],
   bootstrap: [AppComponent],
   entryComponents: [ 
     FormComponent 
-  ] 
+  ] ,
+  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
 })
 export class AppModule { }

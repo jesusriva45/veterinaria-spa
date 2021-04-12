@@ -6,5 +6,6 @@ export class Usuario {
     email: string;
     fecha_nac: string;
     fecha_reg: string;
+    Ubigeo: Object;
     
 }

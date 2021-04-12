@@ -28,13 +28,14 @@ export class UsuarioService {
 
   getUsuarios(): Observable<Usuario[]>{
     //return of();
-
     //return this.http.get<Usuario[]>(this.urlEndPoint);
 
-    return this.http.get(this.urlEndPoint).pipe(
+  return this.http.get(this.urlEndPoint).pipe(
       map(response => response as Usuario[])
     );
   }
+
+  
 
   insert(usuario: Usuario): Observable<Usuario>{
     return this.http.post<Usuario>(this.urlEndPoint, usuario ,{headers : this.httpHeaders})    

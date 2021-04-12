@@ -1,4 +1,4 @@
-import { Component, OnInit } from '@angular/core';
+import { Component, Input, OnInit, Output, TemplateRef } from '@angular/core';
 import { Usuario } from './usuario';
 
 import { Router, ActivatedRoute } from '@angular/router';
@@ -12,7 +12,12 @@ import {
 
   FormGroup,
   FormControl,
-  Validators} from '@angular/forms';
+  Validators
+} from '@angular/forms';
+import { Template } from '@angular/compiler/src/render3/r3_ast';
+
+
+
 
 
 @Component({
@@ -33,6 +38,8 @@ export class UsuariosComponent implements OnInit {
 
 
   idUsario: number;
+
+  
 
   
 
@@ -76,7 +83,8 @@ export class UsuariosComponent implements OnInit {
   }
 
 
-
+  
+  
 
   createFormControls() {
     this.IdUsuario = new FormControl('', Validators.nullValidator);
@@ -92,6 +100,8 @@ export class UsuariosComponent implements OnInit {
     ]);  
    
   }
+
+
 
   createForm() {
     this.myform = new FormGroup({
@@ -131,9 +141,13 @@ export class UsuariosComponent implements OnInit {
     }
   }*/
 
-  
 
-openModalCrud(targetModal : Component, idUsario :number, accion: string):void {
+
+
+openModalCrud(targetModal  : Component,  accion : string, idUsario ? :number):void {
+
+    
+
     this.modalService.open(targetModal, {      
        centered: true,
       animation: true,    
@@ -143,36 +157,42 @@ openModalCrud(targetModal : Component, idUsario :number, accion: string):void {
    });
      
     if( accion == "detalle"){     
-      this.titulo = "Detalles de Usuario"
-      this.usuario.id_usuario = idUsario;
+      //this.titulo = "Detalles de Usuario"
+      // = idUsario;
       console.log(this.usuario.id_usuario);
-      
+
       this.getUsuarioId(idUsario)
+
       for (let j = 0; j < this.input.length; j++) {
         this.input[j].setAttribute("disabled","");       
-      }      
-
+      }     
+        
     } 
 
     else if( accion == "editar"){
       this.titulo = "Actualizar Información"
-      this.getUsuarioId(idUsario)
-      this.usuario.id_usuario = idUsario;      
+      this.getUsuarioId(idUsario)      
       console.log(this.usuario.id_usuario);
       
       
     } 
      else if( accion == "agregar"){
      this.titulo = "Registro de Usuario"
-     this.modalAgregar();     
+     //this.modalAgregar();    
+     //this.myform.clearValidators();  
     }    
  }
 
  
 
+cerrarmodal(){
+  this.modalService.dismissAll();
+  this.myform.reset();  
+}
 
 
- modalAgregar(){  
+
+ /*modalAgregar(){  
 
   this.usuario.id_usuario=0;
   this.usuario.nombres="";
@@ -186,7 +206,7 @@ openModalCrud(targetModal : Component, idUsario :number, accion: string):void {
         this.input[j].setAttribute("ng-reflect-model"," ");  
         console.log(`${this.usuario.id_usuario } "HOLA" ${ this.input[j].setAttribute("ng-reflect-model","0")}`);     
       } 
- }
+ }*/
 
 
  
@@ -271,7 +291,12 @@ verificarDatos(): void{
 
 
 getUsuarioId(idUsario){
+  
+
   this.usuarioService.getUsuario(idUsario).subscribe( (usuario) => this.usuario = usuario)
+
+
+
 }
 
 
