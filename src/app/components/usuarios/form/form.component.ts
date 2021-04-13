@@ -1,6 +1,6 @@
-import { Component, EventEmitter, OnInit, Output, ViewChild } from '@angular/core';
-import { Usuario } from '../usuario'
-import { UsuarioService } from '../usuario.service';
+import { Component, OnInit } from '@angular/core';
+import { Usuario } from '../../../models/usuario'
+import { UsuarioService } from '../../../services/usuario.service';
 
 import {NgbModal, ModalDismissReasons} from '@ng-bootstrap/ng-bootstrap';
 //import { NgbActiveModal, NgbModal } from '@ng-bootstrap/ng-bootstrap';
@@ -9,7 +9,7 @@ import swal from 'sweetalert2'
 
 import { Router } from '@angular/router';
 import { NgForm } from '@angular/forms';
-import { Location } from '@angular/common'
+
 
 @Component({
   selector: 'app-form',

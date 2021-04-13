@@ -1,11 +1,12 @@
-import { Component, Input, OnInit, Output, TemplateRef } from '@angular/core';
-import { Usuario } from './usuario';
+import { Component,  OnInit } from '@angular/core';
+import { Usuario } from '../../models/usuario';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 
 
-import { UsuarioService } from './usuario.service'
-import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import { UsuarioService } from '../../services/usuario.service';
+
+import {NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import swal from 'sweetalert2'
 import {   
@@ -14,9 +15,9 @@ import {
   FormControl,
   Validators
 } from '@angular/forms';
-import { Template } from '@angular/compiler/src/render3/r3_ast';
-import { Ubigeo } from './ubigeo';
-import { Observable } from 'rxjs';
+
+import { Ubigeo } from '../../models/ubigeo';
+
 
 
 
@@ -88,6 +89,10 @@ export class UsuariosComponent implements OnInit {
 
   }
 
+  ngOnDestroy() {
+   
+   
+  }
 
   
   
@@ -187,9 +192,7 @@ cerrarmodal(){
 
 compareUbigeo(t1:Ubigeo, t2:Ubigeo): boolean {
  //console.log(t1.id_ubigeo + t2.id_ubigeo);
- return t1 === null || t2 === null || t1 === undefined || t2 === undefined ? false : t1.id_ubigeo === t2.id_ubigeo;
- 
- 
+ return t1 === null || t2 === null || t1 === undefined || t2 === undefined ? false : t1.id_ubigeo === t2.id_ubigeo; 
 }
 
 

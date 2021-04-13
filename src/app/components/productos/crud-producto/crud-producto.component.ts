@@ -3,12 +3,12 @@ import { Component, OnInit } from '@angular/core';
 
 
 import { Router, ActivatedRoute } from '@angular/router';
-import { ProductoService } from '../../../components/productos/producto.service'
+import { ProductoService } from '../../../services/producto.service'
 
-import { Producto } from '../producto';
+import { Producto } from '../../../models/producto';
 
 
-import {NgbModal, ModalDismissReasons, NgbActiveModal} from '@ng-bootstrap/ng-bootstrap';
+import {NgbModal} from '@ng-bootstrap/ng-bootstrap';
 
 import swal from 'sweetalert2'
 import {   

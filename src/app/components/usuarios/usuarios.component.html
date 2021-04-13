@@ -41,9 +41,9 @@
                         <td>{{ usuario.ubigeo.departamento }}</td>
                         <td>{{ usuario.ubigeo.provincia }}</td>
                         <td>{{ usuario.ubigeo.distrito }}</td>
-                        <td><input type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,'detalle',usuario.id_usuario)"></td>
-                        <td><input type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,'editar',usuario.id_usuario)"></td>
-                        <td><input type="button" class="btn btn-danger crud" value="Eliminar"></td>
+                        <td><button type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,'detalle',usuario.id_usuario)">Detalle</button></td>
+                        <td><button type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,'editar',usuario.id_usuario)">Editar</button></td>
+                        <td><button type="button" class="btn btn-danger crud" value="Eliminar">Eliminar</button></td>
                     </tr>
 
                 </tbody>

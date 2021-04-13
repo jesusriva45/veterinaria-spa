@@ -1,9 +1,9 @@
 import { Injectable } from '@angular/core';
-import { Usuario } from './usuario';
+import { Usuario } from '../models/usuario';
 import { of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map } from 'rxjs/operators';
-import { Ubigeo } from './ubigeo';
+import { Ubigeo } from '../models/ubigeo';
 
 @Injectable({
   providedIn: 'root'
