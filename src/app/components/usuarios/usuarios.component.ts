@@ -15,6 +15,8 @@ import {
   Validators
 } from '@angular/forms';
 import { Template } from '@angular/compiler/src/render3/r3_ast';
+import { Ubigeo } from './ubigeo';
+import { Observable } from 'rxjs';
 
 
 
@@ -40,7 +42,7 @@ export class UsuariosComponent implements OnInit {
   idUsario: number;
 
   
-
+  ubigeo : Ubigeo[];
   
 
   
@@ -56,7 +58,7 @@ export class UsuariosComponent implements OnInit {
   email: FormControl;
   FechaNac: FormControl;
 
-
+  id_ubi: FormControl;
 
 
  // button = document.getElementsByClassName("crud")
@@ -64,15 +66,19 @@ export class UsuariosComponent implements OnInit {
   constructor(
     private usuarioService: UsuarioService, 
     private router: Router, 
-    private modalService: NgbModal,
-    private activatedRoute: ActivatedRoute) {
+    private modalService: NgbModal
+    ) {
 
       this.titulo;
 
      }
 
   ngOnInit(): void {
-    this.usuarioService .getUsuarios().subscribe(
+
+    this.usuarioService.getRegiones().subscribe(ubigeo =>{ this.ubigeo = ubigeo });
+  
+
+    this.usuarioService.getUsuarios().subscribe(
       usuarios => this.usuarios = usuarios
     );      
 
@@ -90,6 +96,7 @@ export class UsuariosComponent implements OnInit {
     this.IdUsuario = new FormControl('', Validators.nullValidator);
     this.Nombres = new FormControl('', Validators.required);
     this.Apellidos = new FormControl('', Validators.required);
+    this.id_ubi = new FormControl(null);
     this.email = new FormControl('', [
       Validators.required,
       Validators.minLength(15)
@@ -110,7 +117,8 @@ export class UsuariosComponent implements OnInit {
       Apellidos: this.Apellidos,     
       IdUsuario: this.IdUsuario,
       email: this.email,
-      FechaNac: this.FechaNac 
+      FechaNac: this.FechaNac,
+      id_ubi: this.id_ubi
     })   
     });
   }
@@ -118,35 +126,15 @@ export class UsuariosComponent implements OnInit {
   
 
 
-  
-  /*open(content, type, modalDimension) {
-    if (modalDimension === 'sm' && type === 'modal_mini') {
-        this.modalService.open(content, { windowClass: 'modal-mini', size: 'sm', centered: true }).result.then((result) => {
-            this.closeResult = 'Closed with: $result';
-        }, (reason) => {
-            this.closeResult = 'Dismissed $this.getDismissReason(reason)';
-        });
-    } else if (modalDimension === '' && type === 'Notification') {
-      this.modalService.open(content, { windowClass: 'modal-danger', centered: true }).result.then((result) => {
-          this.closeResult = 'Closed with: $result';
-      }, (reason) => {
-          this.closeResult = 'Dismissed $this.getDismissReason(reason)';
-      });
-    } else {
-        this.modalService.open(content,{ centered: true }).result.then((result) => {
-            this.closeResult = 'Closed with: $result';
-        }, (reason) => {
-            this.closeResult = 'Dismissed $this.getDismissReason(reason)';
-        });
-    }
-  }*/
+ 
 
 
 
 
 openModalCrud(targetModal  : Component,  accion : string, idUsario ? :number):void {
 
-    
+  this.createFormControls();
+  this.createForm();
 
     this.modalService.open(targetModal, {      
        centered: true,
@@ -158,7 +146,7 @@ openModalCrud(targetModal  : Component,  accion : string, idUsario ? :number):vo
      
     if( accion == "detalle"){     
       //this.titulo = "Detalles de Usuario"
-      // = idUsario;
+     idUsario;
       console.log(this.usuario.id_usuario);
 
       this.getUsuarioId(idUsario)
@@ -171,12 +159,14 @@ openModalCrud(targetModal  : Component,  accion : string, idUsario ? :number):vo
 
     else if( accion == "editar"){
       this.titulo = "Actualizar Información"
+      this.usuario.id_usuario = idUsario;
       this.getUsuarioId(idUsario)      
       console.log(this.usuario.id_usuario);
       
       
     } 
      else if( accion == "agregar"){
+      this.usuario.id_usuario = 0
      this.titulo = "Registro de Usuario"
      //this.modalAgregar();    
      //this.myform.clearValidators();  
@@ -192,59 +182,39 @@ cerrarmodal(){
 
 
 
- /*modalAgregar(){  
-
-  this.usuario.id_usuario=0;
-  this.usuario.nombres="";
-  this.usuario.apellidos="";
-  this.usuario.email="";
-  this.usuario.fecha_nac="";
-  this.myform.reset();
-  this.myform.clearValidators();
-      this.usuario.id_usuario = 0;
-      for (let j = 0; j < this.input.length; j++) {
-        this.input[j].setAttribute("ng-reflect-model"," ");  
-        console.log(`${this.usuario.id_usuario } "HOLA" ${ this.input[j].setAttribute("ng-reflect-model","0")}`);     
-      } 
- }*/
-
 
  
 
+compareUbigeo(t1:Ubigeo, t2:Ubigeo): boolean {
+ //console.log(t1.id_ubigeo + t2.id_ubigeo);
+ return t1 === null || t2 === null || t1 === undefined || t2 === undefined ? false : t1.id_ubigeo === t2.id_ubigeo;
  
-  
-
-
-
-/*cargarUsuario():void{
-    this.activatedRoute.params.subscribe(params =>{
-      let id = params['id']
-      if(id){
-        this.usuarioService.getUsuario(id).subscribe( (usuario) => this.usuario = usuario)
-      }
-    })
+ 
 }
-*/
+
+
+/*compareFn(o1: Ubigeo, o2: Ubigeo): boolean {
+  if (o1 === undefined && o2 === undefined) {
+    return true;
+  }
+
+  return o1 === null || o2 === null || o1 === undefined || o2 === undefined ? false : o1.id_ubigeo === o2.id_ubigeo;
+}*/
+  
+
 
 
 
   
-verificarDatos(): void{
-    // console.log("Clicked")
-   //console.log(this.usuario)  
-  //if(usuarioForm.value.usuarioId == null){
-  
-   // onButtonClick(){
-      for (let j = 0; j < this.input.length; j++) {     
-    
-         // if (this.usuario.email == null || this.usuario.nombres == null || this.usuario.apellidos == null || this.usuario.fecha_nac == null) {
+verificarDatos(): void{  
+
+      for (let j = 0; j < this.input.length; j++) {        
           if(!this.myform.valid){
             swal.fire({
               icon: 'error',
               title: 'Cuidado...! Aun te faltan datos por completar. '
              // text: 'Oops...'        
-            })
-           // this.click = !this.click;
+            })          
            this.myform.invalid
           }
          if (this.myform.valid){
@@ -259,6 +229,9 @@ verificarDatos(): void{
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, registrarse'
           }).then((result) => {
+
+
+           if(this.usuario.id_usuario === 0){
             if (result.isConfirmed) {
               swal.fire(
                 'Registro Exitoso...!',
@@ -269,7 +242,21 @@ verificarDatos(): void{
               this.modalService.dismissAll();
       
               
-            }      
+            }
+           } 
+           else if(this.usuario.id_usuario != 0 && this.usuario.id_usuario>0){
+            if (result.isConfirmed) {
+              swal.fire(
+                'Update Exitoso...!',
+                'Bienvenido a nuestra veterinaria',
+                'success'
+              )  
+              this.insert();
+              this.modalService.dismissAll();
+      
+              
+            }
+           }      
           })
         }          
       } 
@@ -299,40 +286,22 @@ getUsuarioId(idUsario){
 
 }
 
+update():void{
+  this.usuarioService.update(this.usuario).subscribe(
+    response => {             
+      let currentUrl = this.router.url;
+      this.router.navigateByUrl('/', {skipLocationChange: true}).then(() => {                      
+         
+        this.router.navigate([currentUrl]);
+      });        
+       // this.router.navigate([window.location.reload()]);       
+    }    
+  )
+}
 
 
 
-/* open(content):void  {    
 
-  this.modalService.open(content, {ariaLabelledBy: 'modal-basic-title'}).result.then((result) => {
-
-    this.closeResult = `Closed with: ${result}`;
-
-  }, (reason) => {
-
-   this.closeResult = `Dismissed ${this.getDismissReason(reason)}`;
-
-  });
-
-}*/
-
-/*private getDismissReason(reason: any): any {
-
-  if (reason === ModalDismissReasons.ESC) {
-
-    return 'by pressing ESC';
-
-  } else if (reason === ModalDismissReasons.BACKDROP_CLICK) {
-
-    return console.log('by clicking on a backdrop');
-
-  } else {
-   
-    return  `with: ${reason}`;
-
-  }
-
-}*/
 
 
 

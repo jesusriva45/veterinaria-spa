@@ -3,6 +3,7 @@ import { Usuario } from './usuario';
 import { of, Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http'
 import { map } from 'rxjs/operators';
+import { Ubigeo } from './ubigeo';
 
 @Injectable({
   providedIn: 'root'
@@ -11,6 +12,7 @@ export class UsuarioService {
 
 
   private urlEndPoint: string = 'http://localhost:8080/api/usuarios';
+  private urlEndPointUbigeo: string = 'http://localhost:8080/api/ubigeo';
 
   private httpHeaders = new HttpHeaders({'Content-Type' : 'application/json', 
 'Accept': 'application/json',
@@ -51,10 +53,14 @@ export class UsuarioService {
     return this.http.delete<Usuario>(`${this.urlEndPoint}/${id}`, {headers : this.httpHeaders})  
   }
 
+  update(usuario: Usuario): Observable<Usuario>{
+    return this.http.put<Usuario>(`${this.urlEndPoint}/${usuario.id_usuario}`, usuario ,{headers : this.httpHeaders})    
+  }
 
 
-
-
+  getRegiones():Observable<Ubigeo[]>{
+    return this.http.get<Ubigeo[]>(`${this.urlEndPoint}/ubigeo`);
+}
 
 
 }

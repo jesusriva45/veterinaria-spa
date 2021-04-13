@@ -1,3 +1,5 @@
+import { Ubigeo } from "./ubigeo";
+
 export class Usuario {
 
     id_usuario: number;
@@ -6,6 +8,6 @@ export class Usuario {
     email: string;
     fecha_nac: string;
     fecha_reg: string;
-    Ubigeo: Object;
+    ubigeo: Ubigeo;
     
 }
