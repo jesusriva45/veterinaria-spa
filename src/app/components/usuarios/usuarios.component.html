@@ -102,10 +102,15 @@
           'has-success': Nombres.valid && (Nombres.dirty || Nombres.touched)
         }">
                                 <label>First Name</label>
-                                <input type="text" class=" form-input" id="nomForm" [(ngModel)]="usuario.nombres" formControlName="Nombres" required>
+                                <input type="text" class="form-control" id="nomForm" [(ngModel)]="usuario.nombres" formControlName="Nombres" required>
                                 <div class="form-control-feedback" *ngIf="Nombres.errors && (Nombres.dirty || Nombres.touched)">
                                     <p class="alert alert-danger" role="alert" *ngIf="Nombres.errors.required">Last Name is required</p>
                                 </div>
+                                <div class="form-control-feedback" *ngIf="Nombres.valid && (Nombres.dirty || Nombres.touched)">
+                                    <p class="alert alert-success" role="alert" *ngIf="Nombres.valid">Nombre Valido</p>
+                                </div>
+
+
 
                                 <!--
           <pre>Valid? {{ myform.controls.name.controls.firstName.valid }}</pre>
@@ -153,6 +158,7 @@
                                 <input type="date" class=" form-input" [(ngModel)]="usuario.fecha_nac" formControlName="FechaNac" required>
                                 <div class="form-control-feedback" *ngIf="FechaNac.errors && (FechaNac.dirty || FechaNac.touched)">
                                     <p class="alert alert-danger" *ngIf="FechaNac.errors.required">Fecha is required</p>
+
                                     <p class="alert alert-danger" *ngIf="FechaNac.errors.minlength">Fecha must be 8 characters long, we need another {{FechaNac.errors.minlength.requiredLength - FechaNac.errors.minlength.actualLength}} characters </p>
                                 </div>
                             </div>
@@ -170,7 +176,7 @@
                                 <label>Region</label>
 
                                 <select class="form-input " [(ngModel)]="usuario.ubigeo" [compareWith]="compareUbigeo" formControlName="id_ubi" required>
-                                        <option [ngValue]="undefined">--- selecionar una región ---</option>
+                                        <option [ngValue]="undefined" selected>--- selecionar una región ---</option>
                                         <option *ngFor="let region of ubigeo" [ngValue]="region" > {{ region.departamento  }} - {{ region.provincia  }} - {{ region.distrito  }}</option>
                                 </select>
                                 <div class="form-control-feedback" *ngIf="id_ubi.errors && (id_ubi.dirty || id_ubi.touched)">
@@ -189,10 +195,10 @@
 
                             <!--button type="" class="cancel btn m-4" data-bs-dismiss="modal">Cancelar</button-->
 
-                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(usuario.id_usuario == 0) else elseBlock">Registrar</button>
+                            <button type="submit" id="Guerra" class="acept btn m-4" [disabled]="myform.invalid" *ngIf="(usuario.id_usuario == 0) else elseBlock">Registrar</button>
 
                             <ng-template #elseBlock>
-                                <button type="" role="button" class="acept btn m-4">Actualizar</button>
+                                <button type="" role="button" class="acept btn m-4" [disabled]="myform.invalid">Actualizar</button>
                             </ng-template>
                         </div>
 

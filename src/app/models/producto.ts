@@ -1,3 +1,6 @@
+import { Categoria } from "./categoria";
+import { Proveedor } from "./proveedor";
+
 export class Producto {
 
  
@@ -10,7 +13,7 @@ export class Producto {
 	descripcion:string;
 	indicaciones:string;
 	foto:string;
-	idproveedor:number;	
-	idtipo:number;	
+	id_proveedor:Proveedor;	
+	id_categoria_pro:Categoria;	
 
 }
