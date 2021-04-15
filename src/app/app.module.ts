@@ -1,27 +1,22 @@
-import { NgModule,CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
+import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
 import * as mdb from 'mdb-ui-kit'; // lib
 import { Input } from 'mdb-ui-kit'; // module
-
-
+import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';
 import { AppComponent } from './app.component';
 
-
-import { HttpClientModule } from '@angular/common/http' 
-import { FormsModule,ReactiveFormsModule } from '@angular/forms'
-import { RouterModule } from '@angular/router'
-
+import { HttpClientModule } from '@angular/common/http';
+import { FormsModule, ReactiveFormsModule } from '@angular/forms';
+import { RouterModule } from '@angular/router';
 
 import { ROUTES } from './app.routes';
 import { FormComponent } from './components/usuarios/form/form.component';
-import {NgbModule} from '@ng-bootstrap/ng-bootstrap';
+import { NgbModule } from '@ng-bootstrap/ng-bootstrap';
 
 import { CommonModule } from '@angular/common';
-
-
 
 import { NavbarComponent } from './components/navbar/navbar.component';
 import { HeaderComponent } from './components/header/header.component';
@@ -42,8 +37,6 @@ import { PedidosComponent } from './components/pedidos/pedidos.component';
 import { MdbModule } from 'mdb-angular-ui-kit';
 import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
 
-
-
 @NgModule({
   declarations: [
     AppComponent,
@@ -63,8 +56,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     ClientesComponent,
     RegistroClienteComponent,
     RegistroMascotaComponent,
-    PedidosComponent,    
-
+    PedidosComponent,
   ],
   imports: [
     BrowserModule,
@@ -72,18 +64,16 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     HttpClientModule,
     FormsModule,
     ReactiveFormsModule,
-    RouterModule.forRoot( ROUTES , {onSameUrlNavigation: 'reload'}),
+    RouterModule.forRoot(ROUTES, { onSameUrlNavigation: 'reload' }),
     NgbModule,
     MdbModule,
     BrowserAnimationsModule,
     CommonModule,
-    
+    ScrollingModule,
   ],
   providers: [NgbModule],
   bootstrap: [AppComponent],
-  entryComponents: [ 
-    FormComponent 
-  ] ,
-  schemas: [ CUSTOM_ELEMENTS_SCHEMA ]
+  entryComponents: [FormComponent],
+  schemas: [CUSTOM_ELEMENTS_SCHEMA],
 })
-export class AppModule { }
+export class AppModule {}

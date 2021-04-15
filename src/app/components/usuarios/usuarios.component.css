@@ -11,14 +11,42 @@ form>div>div {
     padding-right: 0%;
 }
 
+.form-group {
+    margin-bottom: 10%;
+}
+
 .form-input {
     outline: none;
     color: #024059;
     border: none;
-    border-bottom: 1px solid #024059;
+    border-bottom: 2px solid #024059;
+    box-shadow: 2px 2px 5px #024059;
+    ;
     width: 85%;
     display: flex;
 }
+
+.form-control-feedback {
+    width: 85%;
+}
+
+
+/*-------- VALIDACION DE FORMULARIO -------------------*/
+
+.has-danger {
+    border-bottom: 2px solid red;
+    box-shadow: 2px 2px 5px red;
+    width: 85%;
+}
+
+.has-success {
+    border-bottom: 2px solid #5cb85c;
+    box-shadow: 2px 2px 5px #5cb85c;
+    width: 85%;
+}
+
+
+/*------------------------------------------------------*/
 
 .btn-submit {
     display: flex;

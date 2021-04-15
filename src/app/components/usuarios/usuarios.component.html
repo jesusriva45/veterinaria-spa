@@ -3,7 +3,7 @@
     Agregar Usuario
   </button*-->
 
-    <input type="button" value="Agregar Usuario" class="btn btn-primary crud" value="Agregar Usuario" (click)="openModalCrud(mymodal,'agregar')">
+    <input type="button" class="btn btn-primary crud" value="Agregar Usuario" (click)="openModalCrud(mymodal,'agregar')">
 
     <div class="card border-primary mb-5 container-fluid mt-5">
 
@@ -69,9 +69,9 @@
                 </div>
                 <div class="modal-body">
 
-                    <form id="form-usuario" #formUsuario="ngForm" [formGroup]="myform" (ngSubmit)="verificarDatos()" class="row container me-auto ms-auto justify-content-center">
+                    <form id="form-usuario" [formGroup]="myform" (ngSubmit)="verificarDatos()" class="row container me-auto ms-auto justify-content-center">
 
-                        <!--input class="form-usuario" name="nombre" [(ngModel)]="usuario.id" placeholder="" hidden/-->
+
 
 
 
@@ -79,81 +79,58 @@
                         <fieldset class="col-6 p-5" formGroupName="name">
 
 
-                            <div class="form-group col-12" [ngClass]="{
-                                    'has-danger': IdUsuario.invalid && (IdUsuario.dirty || IdUsuario.touched),
-                                    'has-success': IdUsuario.valid && (IdUsuario.dirty || IdUsuario.touched)
-                                  }">
+                            <div class="form-group col-12">
 
-                                <input type="text" class="form-control form-input form-usuario" [(ngModel)]="usuario.id_usuario" formControlName="IdUsuario" required hidden>
+                                <input type="text" class="form-input" [(ngModel)]="usuario.id_usuario" formControlName="IdUsuario" required hidden>
                                 <div class="form-control-feedback" *ngIf="IdUsuario.errors && (IdUsuario.dirty || IdUsuario.touched)">
                                     <p class="alert alert-danger" role="alert" *ngIf="IdUsuario.errors.required">Last Name is required</p>
                                 </div>
 
-                                <!--
-                                    <pre>Valid? {{ myform.controls.name.controls.firstName.valid }}</pre>
-                                    <pre>Dirty? {{ myform.controls.name.controls.firstName.dirty }}</pre>
-                                  -->
                             </div>
 
                             <h3 class="col-12 d-flex justify-content-start m-4">EDITAR INFORMACION</h3>
 
-                            <div class="form-group col-12" [ngClass]="{
-          'has-danger': Nombres.invalid && (Nombres.dirty || Nombres.touched),
-          'has-success': Nombres.valid && (Nombres.dirty || Nombres.touched)
-        }">
+                            <div class="form-group col-12">
                                 <label>First Name</label>
-                                <input type="text" class="form-control" id="nomForm" [(ngModel)]="usuario.nombres" formControlName="Nombres" required>
-                                <div class="form-control-feedback" *ngIf="Nombres.errors && (Nombres.dirty || Nombres.touched)">
-                                    <p class="alert alert-danger" role="alert" *ngIf="Nombres.errors.required">Last Name is required</p>
+                                <input type="text" [ngClass]="{
+                                    'has-danger': Nombres.invalid && (Nombres.dirty || Nombres.touched),
+                                    'has-success': Nombres.valid && (Nombres.dirty || Nombres.touched)
+                                  }" class="form-input" id="nomForm" [(ngModel)]="usuario.nombres" formControlName="Nombres" required>
+
+                                <div class="form-control-feedback">
+                                    <p class="alert alert-danger" *ngIf=" (Nombres.errors && Nombres.errors.required && submitted) || ((Nombres.dirty || Nombres.touched) && Nombres.invalid )">Nombres is required</p>
+                                    <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
                                 </div>
-                                <div class="form-control-feedback" *ngIf="Nombres.valid && (Nombres.dirty || Nombres.touched)">
-                                    <p class="alert alert-success" role="alert" *ngIf="Nombres.valid">Nombre Valido</p>
-                                </div>
 
 
 
-                                <!--
-          <pre>Valid? {{ myform.controls.name.controls.firstName.valid }}</pre>
-          <pre>Dirty? {{ myform.controls.name.controls.firstName.dirty }}</pre>
-        -->
+
                             </div>
 
 
-                            <div class="form-group col-12" [ngClass]="{
-          'has-danger': Apellidos.invalid && (Apellidos.dirty || Apellidos.touched),
-          'has-success': Apellidos.valid && (Apellidos.dirty || Apellidos.touched)
-        }">
+                            <div class="form-group col-12">
                                 <label>Last Name</label>
                                 <input type="text" class=" form-input" [(ngModel)]="usuario.apellidos" formControlName="Apellidos" required>
-                                <div class="form-control-feedback " *ngIf="Apellidos.errors && (Apellidos.dirty || Apellidos.touched)">
-                                    <p class="alert alert-danger" *ngIf="Apellidos.errors.required">Last Name is required</p>
+                                <div class="form-control-feedback " *ngIf="(Apellidos.errors) && (Apellidos.dirty || Apellidos.touched)">
+                                    <p class="alert alert-danger position-relative" *ngIf="Apellidos.errors.required">Last Name is required</p>
                                 </div>
                             </div>
 
 
 
-                            <div class="form-group col-12" [ngClass]="{
-          'has-danger': email.invalid && (email.dirty || email.touched),
-          'has-success': email.valid && (email.dirty || email.touched)
-     }">
+                            <div class="form-group col-12">
                                 <label>Email</label>
                                 <input type="email" class=" form-input" [(ngModel)]="usuario.email" formControlName="email" required>
                                 <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
                                     <p class="alert alert-danger" *ngIf="email.errors.required">Email is required</p>
-                                    <p class="alert alert-danger" *ngIf="email.errors.minlength">The email address must contain at least the @ character</p>
+                                    <p class="alert alert-danger" *ngIf="email.errors.pattern">Patron invalido</p>
                                 </div>
 
-                                <!--
-        <pre>Valid? {{ myform.controls.name.controls.email.valid }}</pre>
-        <pre>Dirty? {{ myform.controls.email.dirty }}</pre>
-      -->
+
 
                             </div>
 
-                            <div class="form-group col-12" [ngClass]="{
-          'has-danger': FechaNac.invalid && (FechaNac.dirty || FechaNac.touched),
-          'has-success': FechaNac.valid && (FechaNac.dirty || FechaNac.touched)
-     }">
+                            <div class="form-group col-12">
                                 <label>Fecha de Nacimiento</label>
                                 <input type="date" class=" form-input" [(ngModel)]="usuario.fecha_nac" formControlName="FechaNac" required>
                                 <div class="form-control-feedback" *ngIf="FechaNac.errors && (FechaNac.dirty || FechaNac.touched)">
@@ -169,16 +146,15 @@
 
                             <!--  UBIGEO  -->
 
-                            <div class="form-group col-12" [ngClass]="{
-                                'has-danger': id_ubi.invalid && (id_ubi.dirty || id_ubi.touched),
-                                'has-success': id_ubi.valid && (id_ubi.dirty || id_ubi.touched)
-                           }">
+                            <div class="form-group col-12">
                                 <label>Region</label>
 
                                 <select class="form-input " [(ngModel)]="usuario.ubigeo" [compareWith]="compareUbigeo" formControlName="id_ubi" required>
-                                        <option [ngValue]="undefined" selected>--- selecionar una región ---</option>
+                                    
+                                    <option [ngValue]="undefined" selected>--- selecionar una región ---</option>
                                         <option *ngFor="let region of ubigeo" [ngValue]="region" > {{ region.departamento  }} - {{ region.provincia  }} - {{ region.distrito  }}</option>
-                                </select>
+                                   
+                                    </select>
                                 <div class="form-control-feedback" *ngIf="id_ubi.errors && (id_ubi.dirty || id_ubi.touched)">
                                     <p class="alert alert-danger" *ngIf="id_ubi.errors.required">Ubigeo is required</p>
 
@@ -193,16 +169,16 @@
 
                             <button type="button" id="Guerra" class="cancel btn  m-4" aria-label="Close" (click)="cerrarmodal()">Cancelar</button>
 
-                            <!--button type="" class="cancel btn m-4" data-bs-dismiss="modal">Cancelar</button-->
 
-                            <button type="submit" id="Guerra" class="acept btn m-4" [disabled]="myform.invalid" *ngIf="(usuario.id_usuario == 0) else elseBlock">Registrar</button>
+
+                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(usuario.id_usuario == 0) else elseBlock">Registrar</button>
 
                             <ng-template #elseBlock>
                                 <button type="" role="button" class="acept btn m-4" [disabled]="myform.invalid">Actualizar</button>
                             </ng-template>
                         </div>
 
-                        <!--pre>{{myform.value | json}}</pre-->
+
                     </form>
                 </div>
 

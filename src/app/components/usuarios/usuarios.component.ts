@@ -8,7 +8,12 @@ import { UsuarioService } from '../../services/usuario.service';
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import swal from 'sweetalert2';
-import { FormGroup, FormControl, Validators } from '@angular/forms';
+import {
+  FormGroup,
+  FormControl,
+  Validators,
+  FormGroupDirective,
+} from '@angular/forms';
 
 import { Ubigeo } from '../../models/ubigeo';
 
@@ -22,25 +27,29 @@ export class UsuariosComponent implements OnInit {
 
   usuario: Usuario = new Usuario();
 
-  closeResult: String;
-
   titulo: string = 'Agregar Usuario';
 
-  //parametro
+  //---- parametro para detalle - actualizar
   idUsario: number;
 
   ubigeo: Ubigeo[];
 
   button = document.getElementsByClassName('crud');
   input = document.getElementsByClassName('form-input');
+
+  //------------------- CAMPOS DE FORMULARIO --------------------------------
   myform: FormGroup;
   IdUsuario: FormControl;
   Nombres: FormControl;
   Apellidos: FormControl;
   email: FormControl;
   FechaNac: FormControl;
-
   id_ubi: FormControl;
+
+  //---------------------------------------------------------------------
+
+  //mostrar alerta de validacion
+  submitted: boolean = false;
 
   // button = document.getElementsByClassName("crud")
 
@@ -56,26 +65,25 @@ export class UsuariosComponent implements OnInit {
     this.usuarioService
       .getUsuarios()
       .subscribe((usuarios) => (this.usuarios = usuarios));
-
     //this.createFormControls();
     //this.createForm();
   }
 
   ngOnDestroy() {}
 
+  //------------------- VALIDACION DE FORMULARIO --------------------------------
   createFormControls() {
-    this.IdUsuario = new FormControl('', Validators.nullValidator);
-    this.Nombres = new FormControl('', Validators.required);
-    this.Apellidos = new FormControl('', Validators.required);
+    this.IdUsuario = new FormControl('', [Validators.nullValidator]);
+    this.Nombres = new FormControl('', [Validators.required]);
+    this.Apellidos = new FormControl('', [Validators.required]);
     this.id_ubi = new FormControl(null);
     this.email = new FormControl('', [
       Validators.required,
-      Validators.minLength(15),
+      Validators.pattern(
+        '^[a-zA-Z]{1,}([.]{1})?[a-zA-Z]{1,}[@]{1}[a-zA-Z]{1,}[.]{1}[a-z]{2,5}([.][a-z]{2,3})?$'
+      ),
     ]);
-    this.FechaNac = new FormControl('', [
-      Validators.required,
-      Validators.minLength(8),
-    ]);
+    this.FechaNac = new FormControl('', [Validators.required]);
   }
 
   createForm() {
@@ -91,6 +99,7 @@ export class UsuariosComponent implements OnInit {
     });
   }
 
+  //--------------------- RENDERIZADO DE MODAL PARA CRUD DE USUARIOS --------------------------
   openModalCrud(
     targetModal: Component,
     accion: string,
@@ -104,14 +113,15 @@ export class UsuariosComponent implements OnInit {
       animation: true,
       backdropClass: 'modal-backdrop',
       size: 'xl',
+      keyboard: false,
     });
 
     if (accion == 'detalle') {
       //this.titulo = "Detalles de Usuario"
-      idUsario;
+
       console.log(this.usuario.id_usuario);
       this.getUsuarioId(idUsario);
-      this.getUbigeo();
+      //this.getUbigeo();
       for (let j = 0; j < this.input.length; j++) {
         this.input[j].setAttribute('disabled', '');
       }
@@ -119,7 +129,7 @@ export class UsuariosComponent implements OnInit {
       this.titulo = 'Actualizar Información';
       this.usuario.id_usuario = idUsario;
       this.getUsuarioId(idUsario);
-      this.getUbigeo();
+      //this.getUbigeo();
       console.log(this.usuario.id_usuario);
     } else if (accion == 'agregar') {
       this.getUbigeo();
@@ -130,7 +140,15 @@ export class UsuariosComponent implements OnInit {
     }
   }
 
+  //---------- sin uso ----- NgbModal keyboard ------------
+  alertDismiss(): boolean {
+    this.myform.reset();
+    this.submitted = false;
+    return true;
+  }
+
   cerrarmodal() {
+    this.submitted = false;
     this.modalService.dismissAll();
     this.myform.reset();
     //this.usuarioService.getRegiones().subscribe((ubigeo) => (this.ubigeo = []));
@@ -159,6 +177,8 @@ export class UsuariosComponent implements OnInit {
           title: 'Cuidado...! Aun te faltan datos por completar. ',
           // text: 'Oops...'
         });
+        this.submitted = true;
+        console.log(this.submitted);
         //this.myform.invalid;
       }
       if (this.myform.valid) {
@@ -203,6 +223,8 @@ export class UsuariosComponent implements OnInit {
       }
     }
   }
+
+  //------------------ CRUD DE USUARIOS ---------------------------
 
   insert(): void {
     this.usuarioService.insert(this.usuario).subscribe((response) => {

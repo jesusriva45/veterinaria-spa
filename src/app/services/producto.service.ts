@@ -62,11 +62,11 @@ export class ProductoService {
     return this.http.get<Producto>(`${this.urlEndPoint}/${id}`);
   }
 
-  getProveedor(): Observable<Proveedor> {
-    return this.http.get<Proveedor>(`${this.urlEndPoint}/proveedor`);
+  getProveedor(): Observable<Proveedor[]> {
+    return this.http.get<Proveedor[]>(`${this.urlEndPoint}/proveedor`);
   }
 
-  getCategoria(): Observable<Categoria> {
-    return this.http.get<Categoria>(`${this.urlEndPoint}/categoria`);
+  getCategoria(): Observable<Categoria[]> {
+    return this.http.get<Categoria[]>(`${this.urlEndPoint}/categoria`);
   }
 }
