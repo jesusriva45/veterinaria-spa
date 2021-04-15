@@ -35,10 +35,11 @@
                         <th class="align-middle"><img class="img-fluid me-auto ms-auto" src="../../../../assets/img/antipulgas.png" width="50px" height="50px"></th>
                         <th class="align-middle">{{ producto.nombre }}</th>
                         <th class="align-middle">{{ producto.precio }}</th>
-                        <th class="align-middle">{{ producto.marca }}</th>
+                        <th class="align-middle">{{ producto.marca.nombre }}</th>
 
                         <td class="align-middle"><button type="button" class="btn btn-primary crud btn-outline">Detalle</button></td>
-                        <td class="align-middle"><button type="button" class="btn btn-warning crud">Editar</button></td>
+                        <td><button type="button" class="btn btn-warning align-middle crud" value="Detalle" (click)="openModalCrud(mymodal,'editar',producto.id_producto)">Editar</button></td>
+
                         <td class="align-middle"><button type="button" class="btn btn-danger btn-sm px-3">
                             X
                           </button></td>
@@ -75,7 +76,7 @@
 
 
 
-                        <fieldset class="col-6 p-5" formGroupName="name">
+                        <fieldset class="col-12 p-5" formGroupName="name">
 
 
 
@@ -135,27 +136,59 @@
 
 
                             <div class="form-group col-12">
+                                <label>Precio</label>
+                                <input type="text" [ngClass]="{
+                                    'is-invalid': (Precio.errors?.required && submitted) || ((Precio.dirty || Precio.touched) && Precio.invalid ),
+                                    'is-valid': Precio.valid && (Precio.dirty || Precio.touched)
+                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.precio" formControlName="Precio" required>
+
+                                <div class="m-0">
+                                    <p class="alert-danger" *ngIf=" (Precio.errors?.required && submitted) || ((Precio.dirty || Precio.touched) && Precio.invalid )">Precio is required</p>
+                                    <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
+                                </div>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>Serie</label>
+                                <input type="text" [ngClass]="{
+                                    'is-invalid': (Serie.errors?.required && submitted) || ((Serie.dirty || Serie.touched) && Serie.invalid ),
+                                    'is-valid': Precio.valid && (Precio.dirty || Precio.touched)
+                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.serie" formControlName="Serie" required>
+
+                                <div class="m-0">
+                                    <p class="alert-danger" *ngIf=" (Serie.errors?.required && submitted) || ((Serie.dirty || Serie.touched) && Serie.invalid )">Serie is required</p>
+                                    <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
+                                </div>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>Stock</label>
+                                <input type="text" [ngClass]="{
+                                    'is-invalid': (Stock.errors?.required && submitted) || ((Stock.dirty || Stock.touched) && Stock.invalid ),
+                                    'is-valid': Stock.valid && (Stock.dirty || Stock.touched)
+                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.stock" formControlName="Stock" required>
+
+                                <div class="m-0">
+                                    <p class="alert-danger" *ngIf=" (Stock.errors?.required && submitted) || ((Stock.dirty || Stock.touched) && Stock.invalid )">Stock is required</p>
+                                    <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-12">
                                 <label>Marca</label>
 
-                                <select class="w-100 " [(ngModel)]="producto.marca" formControlName="Marca" required>
+                                <select class="w-100 " [(ngModel)]="producto.marca" [compareWith]="compareMarca" formControlName="Marca" required>
                                        
-                                        <option class="" [ngValue]="undefined" aria-hidden="aria-hidden">--- selecionar una marca ---</option>
+                                        <option class="" [ngValue]="undefined" aria-hidden="aria-hidden" selected>--- selecionar una marca ---</option>
 
-                                        <option class="" value="PetMarket" aria-hidden="aria-hidden">PetMarket</option>
-
-
-                                        <option class="" value="Nutrovet" aria-hidden="aria-hidden">Nutrovet</option>
-
-
-                                        <option class="" value="Petmedica" aria-hidden="aria-hidden">Petmedica</option>
-
-
-                                        <option class="" value="VetMarket" aria-hidden="aria-hidden">VetMarket</option>
+                                       
+                                        <option *ngFor="let mar of marca" [ngValue]="mar" > {{ mar.nombre  }}</option>
                                    
                                        
                                     </select>
 
-                                <div class="form-control-feedback m-0">
+                                <div class="m-0">
                                     <p class="alert-danger" *ngIf="(Marca.errors?.required && submitted) || ((Marca.dirty || Marca.touched) && Marca.invalid )">Marca is required</p>
                                     <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
                                 </div>
@@ -173,7 +206,7 @@
                                         <option [ngValue]="undefined" selected>--- selecionar un proveedor ---</option>
                                         <option *ngFor="let prov of proveedor" [ngValue]="prov" > {{ prov.razon_social  }}</option>
                                 </select>
-                                <div class="form-control-feedback" *ngIf="IdProveedor.errors && (IdProveedor.dirty || IdProveedor.touched)">
+                                <div class="" *ngIf="IdProveedor.errors && (IdProveedor.dirty || IdProveedor.touched)">
                                     <p class="alert alert-danger" *ngIf="IdProveedor.errors.required">Proveedor is required</p>
 
                                 </div>
@@ -182,7 +215,7 @@
                             <!--  CATEGORIA  -->
 
                             <div class="form-group col-12">
-                                <label>Region</label>
+                                <label>Categoria</label>
 
                                 <select class="w-100" [(ngModel)]="producto.categoria" [compareWith]="compareCategoria" formControlName="IdCategoria" required>
                                         
@@ -192,7 +225,7 @@
                                 </select>
 
 
-                                <div class="form-control-feedback" *ngIf="IdCategoria.errors && (IdCategoria.dirty || IdCategoria.touched)">
+                                <div class="" *ngIf="IdCategoria.errors && (IdCategoria.dirty || IdCategoria.touched)">
                                     <p class="alert alert-danger" *ngIf="IdCategoria.errors.required">Categoria is required</p>
 
                                 </div>

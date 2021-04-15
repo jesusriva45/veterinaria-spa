@@ -11,6 +11,7 @@ import swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { Categoria } from 'src/app/models/categoria';
 import { Proveedor } from 'src/app/models/proveedor';
+import { Marca } from 'src/app/models/marca';
 
 @Component({
   selector: 'app-crud-producto',
@@ -20,11 +21,16 @@ import { Proveedor } from 'src/app/models/proveedor';
 export class CrudProductoComponent implements OnInit {
   productos: Producto[] = [];
 
-  categoria: Categoria[] = [];
+  categoria: Categoria[] = []; 
 
-  proveedor: Proveedor[] = [];
+  proveedor: Proveedor[] = [];  
+
+  marca: Marca[] = [];
+  
 
   producto: Producto = new Producto();
+
+  
 
   titulo: string = 'Agregar Usuario';
 
@@ -59,10 +65,11 @@ export class CrudProductoComponent implements OnInit {
     private modalService: NgbModal,
     private activatedRoute: ActivatedRoute
   ) {
-    this.titulo;
+    this.titulo;   
   }
 
   ngOnInit(): void {
+   
     this.productoService
       .getProductos()
       .subscribe((productos) => (this.productos = productos));
@@ -125,6 +132,7 @@ export class CrudProductoComponent implements OnInit {
 
       console.log(this.producto.id_producto);
       this.getProducto(idProducto);
+      this.getMarca();
       this.getCategoria();
       this.getProveedor();
       for (let j = 0; j < this.input.length; j++) {
@@ -134,14 +142,18 @@ export class CrudProductoComponent implements OnInit {
       this.titulo = 'Actualizar Información';
 
       this.getProducto(idProducto);
+      this.getMarca();
       this.getCategoria();
       this.getProveedor();
+
       console.log(this.producto.id_producto);
     } else if (accion == 'agregar') {
+
+      this.getMarca();
       this.getCategoria();
-      this.getProveedor();
+      this.getProveedor();      
       this.producto.id_producto = 0;
-      this.titulo = 'Registro de Usuario';
+      this.titulo = 'Registro de Usuario';      
       //this.modalAgregar();
       //this.myform.clearValidators();
     }
@@ -159,21 +171,44 @@ export class CrudProductoComponent implements OnInit {
   //---------*********************************************************------------
   //---------*********************************************************------------
 
-  //----------------------- COMPARACION DE ID DE CATEGORIA Y PRODUCTOS -----------
+  //----------------------- COMPARACION DE ID DE CATEGORIA - PROVEEDOR - MARCA -----------
+ 
+  compareMarca(c1: Marca, c2: Marca): boolean {
+    //console.log(t1.id_ubigeo + t2.id_ubigeo);
+
+    if ((c1 === null && c2 === null) || (c1 === undefined && c2 === undefined)) {
+      return true;
+    } else if (c1 === null || c2 === null || c1 === undefined || c2 === undefined)
+     return false;
+     else{
+       return c1.id_marca_pro === c2.id_marca_pro;
+     }
+  }
+
   compareCategoria(c1: Categoria, c2: Categoria): boolean {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
 
-    if (c1 === null || c2 === null || c1 === undefined || c2 === undefined) {
-      return false;
-    } else return c1.id_categoria_pro === c2.id_categoria_pro;
+    if ((c1 === null && c2 === null) || (c1 === undefined && c2 === undefined)) {
+      return true;
+    } else if (c1 === null || c2 === null || c1 === undefined || c2 === undefined)
+     return false;
+     else{
+       return c1.id_categoria_pro === c2.id_categoria_pro;
+     }
   }
 
   compareProveedor(p1: Proveedor, p2: Proveedor): boolean {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
 
-    if (p1 === null || p2 === null || p1 === undefined || p2 === undefined) {
+    if ((p1 === null && p2 === null) || (p1 === undefined && p2 === undefined)) {
+      return true;
+    } else if(p1 === null || p2 === null || p1 === undefined || p2 === undefined){
       return false;
-    } else return p1.id_proveedor === p2.id_proveedor;
+    }
+    
+    else {
+      return p1.id_proveedor === p2.id_proveedor;}
+
   }
 
   //--------------------- VERIFICACION DE DATOS AL DAR SUBMIT AL FORMULARIO ---------------
@@ -258,6 +293,12 @@ export class CrudProductoComponent implements OnInit {
     this.productoService
       .getProducto(idProducto)
       .subscribe((producto) => (this.producto = producto));
+  }
+
+  getMarca() {
+    this.productoService
+      .getMarca()
+      .subscribe((marca) => (this.marca = marca));
   }
 
   getCategoria() {

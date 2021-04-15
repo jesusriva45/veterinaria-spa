@@ -7,12 +7,17 @@ import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Proveedor } from '../models/proveedor';
 import { Categoria } from '../models/categoria';
+import { Marca } from '../models/marca';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoService {
+  
   private urlEndPoint: string = 'http://localhost:8080/api/productos';
+
+
+
   private urlEndPoint2: string = 'http://localhost:8080/api/productosPrecio';
 
   private httpHeaders = new HttpHeaders({
@@ -60,6 +65,10 @@ export class ProductoService {
   }
   getProducto(id): Observable<Producto> {
     return this.http.get<Producto>(`${this.urlEndPoint}/${id}`);
+  }
+
+  getMarca(): Observable<Marca[]> {
+    return this.http.get<Marca[]>(`${this.urlEndPoint}/marca`);
   }
 
   getProveedor(): Observable<Proveedor[]> {

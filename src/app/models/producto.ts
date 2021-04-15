@@ -1,4 +1,5 @@
 import { Categoria } from './categoria';
+import { Marca } from './marca';
 import { Proveedor } from './proveedor';
 
 export class Producto {
@@ -6,11 +7,11 @@ export class Producto {
   nombre: string;
   precio: number;
   stock: number;
-  serie: number;
-  marca: string;
+  serie: number;  
   descripcion: string;
   indicaciones: string;
   foto: string;
+  id_marca_pro: Marca;
   id_proveedor: Proveedor;
   id_categoria_pro: Categoria;
 }

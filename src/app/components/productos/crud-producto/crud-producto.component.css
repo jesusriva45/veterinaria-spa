@@ -66,21 +66,3 @@ form>div>div {
 
 
 /*-------------------------- SELECT - OPTION ----------------------------*/
-
-select.decorated option:hover {
-    box-shadow: 0 0 10px 100px red inset;
-}
-
-select:focus>option:checked {
-    background: #f00 !important;
-}
-
-select.decorated>option:focus option:hover {
-    background: yellow;
-}
-
-select option:checked,
-select option:hover {
-    box-shadow: 0 0 10px 100px #000 inset;
-    background: blue;
-}
