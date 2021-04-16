@@ -3,15 +3,17 @@ import { Marca } from './marca';
 import { Proveedor } from './proveedor';
 
 export class Producto {
-  id_producto: number;
+  idproducto: number;
   nombre: string;
   precio: number;
   stock: number;
   serie: number;  
   descripcion: string;
   indicaciones: string;
-  foto: string;
-  id_marca_pro: Marca;
-  id_proveedor: Proveedor;
-  id_categoria_pro: Categoria;
+  foto1: string;
+  foto2: string;
+  foto3: string;
+  idmarca: Marca;
+  idproveedor: Proveedor;
+  idcategoria_producto: Categoria;
 }

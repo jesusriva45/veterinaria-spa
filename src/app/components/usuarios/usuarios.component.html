@@ -24,7 +24,11 @@
                         <th scope="col">Handle</th>
                         <th scope="col">Handle</th>
                         <th scope="col">Handle</th>
+                        <th scope="col">Handle</th>
+                        <th scope="col">Handle</th>
                         <th scope="col">Departamento</th>
+                        <th scope="col">Provincia</th>
+                        <th scope="col">Distrito</th>
                         <th scope="col"></th>
                         <th scope="col"></th>
                         <th scope="col"></th>
@@ -32,17 +36,19 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let usuario of usuarios; let i = index">
-                        <th>{{ usuario.id_usuario }}</th>
+                        <th>{{ usuario.idusuario }}</th>
                         <td>{{ usuario.nombres }}</td>
                         <td>{{ usuario.apellidos }}</td>
-                        <td>{{ usuario.email }}</td>
-                        <td>{{ usuario.fecha_nac }}</td>
-                        <td>{{ usuario.fecha_reg }}</td>
+                        <td>{{ usuario.dni }}</td>
+                        <td>{{ usuario.telefono }}</td>
+                        <td>{{ usuario.correo }}</td>
+                        <td>{{ usuario.fechaNac }}</td>
+                        <td>{{ usuario.direccion }}</td>
                         <td>{{ usuario.ubigeo.departamento }}</td>
                         <td>{{ usuario.ubigeo.provincia }}</td>
                         <td>{{ usuario.ubigeo.distrito }}</td>
-                        <td><button type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,'detalle',usuario.id_usuario)">Detalle</button></td>
-                        <td><button type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,'editar',usuario.id_usuario)">Editar</button></td>
+                        <td><button type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,'detalle',usuario.idusuario)">Detalle</button></td>
+                        <td><button type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,'editar',usuario.idusuario)">Editar</button></td>
                         <td><button type="button" class="btn btn-danger crud" value="Eliminar">Eliminar</button></td>
                     </tr>
 
@@ -64,7 +70,7 @@
 
             <div class="modal-content">
                 <div class="modal-header">
-                    <h5 class="modal-title" id="staticBackdropLabel">{{ titulo }}</h5>
+                    <h5 class="modal-title" id="staticBackdropLabel">{{ titulo | uppercase}}</h5>
 
                 </div>
                 <div class="modal-body">
@@ -81,7 +87,7 @@
 
                             <div class="form-group col-12">
 
-                                <input type="text" class="form-input" [(ngModel)]="usuario.id_usuario" formControlName="IdUsuario" required hidden>
+                                <input type="text" class="form-input" [(ngModel)]="usuario.idusuario" formControlName="IdUsuario" required hidden>
                                 <div class="form-control-feedback" *ngIf="IdUsuario.errors && (IdUsuario.dirty || IdUsuario.touched)">
                                     <p class="alert alert-danger" role="alert" *ngIf="IdUsuario.errors.required">Last Name is required</p>
                                 </div>
@@ -91,25 +97,21 @@
                             <h3 class="col-12 d-flex justify-content-start m-4">EDITAR INFORMACION</h3>
 
                             <div class="form-group col-12">
-                                <label>First Name</label>
+                                <label>Nombres</label>
                                 <input type="text" [ngClass]="{
                                     'has-danger': Nombres.invalid && (Nombres.dirty || Nombres.touched),
                                     'has-success': Nombres.valid && (Nombres.dirty || Nombres.touched)
                                   }" class="form-input" id="nomForm" [(ngModel)]="usuario.nombres" formControlName="Nombres" required>
 
                                 <div class="form-control-feedback">
-                                    <p class="alert alert-danger" *ngIf=" (Nombres.errors && Nombres.errors.required && submitted) || ((Nombres.dirty || Nombres.touched) && Nombres.invalid )">Nombres is required</p>
+                                    <p class="alert alert-danger" *ngIf=" (Nombres.errors?.required && submitted) || ((Nombres.dirty || Nombres.touched) && Nombres.invalid )">Nombres is required</p>
                                     <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
                                 </div>
-
-
-
-
                             </div>
 
 
                             <div class="form-group col-12">
-                                <label>Last Name</label>
+                                <label>Apellidos</label>
                                 <input type="text" class=" form-input" [(ngModel)]="usuario.apellidos" formControlName="Apellidos" required>
                                 <div class="form-control-feedback " *ngIf="(Apellidos.errors) && (Apellidos.dirty || Apellidos.touched)">
                                     <p class="alert alert-danger position-relative" *ngIf="Apellidos.errors.required">Last Name is required</p>
@@ -119,20 +121,46 @@
 
 
                             <div class="form-group col-12">
-                                <label>Email</label>
-                                <input type="email" class=" form-input" [(ngModel)]="usuario.email" formControlName="email" required>
-                                <div class="form-control-feedback" *ngIf="email.errors && (email.dirty || email.touched)">
-                                    <p class="alert alert-danger" *ngIf="email.errors.required">Email is required</p>
-                                    <p class="alert alert-danger" *ngIf="email.errors.pattern">Patron invalido</p>
+                                <label>Correo</label>
+                                <input type="email" class=" form-input" [(ngModel)]="usuario.correo" formControlName="Correo" required>
+                                <div class="form-control-feedback" *ngIf="Correo.errors && (Correo.dirty || Correo.touched)">
+                                    <p class="alert alert-danger" *ngIf="Correo.errors.required">Email is required</p>
+                                    <p class="alert alert-danger" *ngIf="Correo.errors.pattern">Patron invalido</p>
                                 </div>
-
-
-
                             </div>
 
                             <div class="form-group col-12">
+                                <label>DNI</label>
+                                <input type="" class=" form-input" [(ngModel)]="usuario.dni" formControlName="Dni" required>
+                                <div class="form-control-feedback" *ngIf="Dni.errors && (Dni.dirty || Dni.touched)">
+                                    <p class="alert alert-danger" *ngIf="Dni.errors.required">DNI is required</p>
+                                    <p class="alert alert-danger" *ngIf="Dni.errors.pattern">Patron invalido - debe contener 8 digitos</p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>Telefono</label>
+                                <input type="" class=" form-input" [(ngModel)]="usuario.telefono" formControlName="Telef" required>
+                                <div class="form-control-feedback" *ngIf="Telef.errors && (Telef.dirty || Telef.touched)">
+                                    <p class="alert alert-danger" *ngIf="Telef.errors.required">Telefono is required</p>
+                                    <p class="alert alert-danger" *ngIf="Telef.errors.pattern">Patron invalido </p>
+                                </div>
+                            </div>
+
+                            <div class="form-group col-12">
+                                <label>Dirección</label>
+                                <input type="" class=" form-input" [(ngModel)]="usuario.direccion" formControlName="Direc" required>
+                                <div class="form-control-feedback" *ngIf="Direc.errors && (Direc.dirty || Direc.touched)">
+                                    <p class="alert alert-danger" *ngIf="Direc.errors.required">Dirección is required</p>
+                                    <p class="alert alert-danger" *ngIf="Direc.errors.pattern">Patron invalido </p>
+                                </div>
+                            </div>
+
+
+
+                            <div class="form-group col-12">
                                 <label>Fecha de Nacimiento</label>
-                                <input type="date" class=" form-input" [(ngModel)]="usuario.fecha_nac" formControlName="FechaNac" required>
+                                <input type="date" class=" form-input" [(ngModel)]="usuario.fechaNac" formControlName="FechaNac" required>
                                 <div class="form-control-feedback" *ngIf="FechaNac.errors && (FechaNac.dirty || FechaNac.touched)">
                                     <p class="alert alert-danger" *ngIf="FechaNac.errors.required">Fecha is required</p>
 
@@ -171,7 +199,7 @@
 
 
 
-                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(usuario.id_usuario == 0) else elseBlock">Registrar</button>
+                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(usuario.idusuario == 0) else elseBlock">Registrar</button>
 
                             <ng-template #elseBlock>
                                 <button type="" role="button" class="acept btn m-4" [disabled]="myform.invalid">Actualizar</button>

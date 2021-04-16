@@ -88,7 +88,7 @@ export class CrudProductoComponent implements OnInit {
     this.Stock = new FormControl('', Validators.required);
     this.IdCategoria = new FormControl('', Validators.required);
     this.IdProveedor = new FormControl('', Validators.required);
-    this.foto = new FormControl(null);
+    this.foto = new FormControl('', Validators.required);
   }
 
   createForm() {
@@ -130,7 +130,7 @@ export class CrudProductoComponent implements OnInit {
     if (accion == 'detalle') {
       //this.titulo = "Detalles de Usuario"
 
-      console.log(this.producto.id_producto);
+      console.log(this.producto.idproducto);
       this.getProducto(idProducto);
       this.getMarca();
       this.getCategoria();
@@ -146,13 +146,14 @@ export class CrudProductoComponent implements OnInit {
       this.getCategoria();
       this.getProveedor();
 
-      console.log(this.producto.id_producto);
+      console.log(this.producto.idproducto);
     } else if (accion == 'agregar') {
+
 
       this.getMarca();
       this.getCategoria();
       this.getProveedor();      
-      this.producto.id_producto = 0;
+      this.producto.idproducto = 0;
       this.titulo = 'Registro de Usuario';      
       //this.modalAgregar();
       //this.myform.clearValidators();
@@ -181,7 +182,7 @@ export class CrudProductoComponent implements OnInit {
     } else if (c1 === null || c2 === null || c1 === undefined || c2 === undefined)
      return false;
      else{
-       return c1.id_marca_pro === c2.id_marca_pro;
+       return c1.idmarca === c2.idmarca;
      }
   }
 
@@ -239,7 +240,7 @@ export class CrudProductoComponent implements OnInit {
             confirmButtonText: 'Si, registrarse',
           })
           .then((result) => {
-            if (this.producto.id_producto === 0) {
+            if (this.producto.idproducto === 0) {
               if (result.isConfirmed) {
                 swal.fire(
                   'Registro Exitoso...!',
@@ -250,8 +251,8 @@ export class CrudProductoComponent implements OnInit {
                 this.modalService.dismissAll();
               }
             } else if (
-              this.producto.id_producto != 0 &&
-              this.producto.id_producto > 0
+              this.producto.idproducto != 0 &&
+              this.producto.idproducto > 0
             ) {
               if (result.isConfirmed) {
                 swal.fire(
@@ -270,7 +271,7 @@ export class CrudProductoComponent implements OnInit {
 
   //----------------------- CRUD DE PRODUCTOS ---------------------------
   insert(): void {
-    this.productoService.insert(this.producto).subscribe((response) => {
+    this.productoService.insert(this.producto).subscribe((response) => {      
       let currentUrl = this.router.url;
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate([currentUrl]);

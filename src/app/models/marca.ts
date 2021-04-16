@@ -1,4 +1,4 @@
 export class Marca {
-    id_marca_pro: number;
+    idmarca: number;
     nombre:string;
 }

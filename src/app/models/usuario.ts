@@ -2,12 +2,14 @@ import { Ubigeo } from "./ubigeo";
 
 export class Usuario {
 
-    id_usuario: number;
+    idusuario: number;
     nombres: string;
     apellidos: string;
-    email: string;
-    fecha_nac: string;
-    fecha_reg: string;
-    ubigeo: Ubigeo;
-    
+    dni  : string;
+    correo  : string;
+    fechaReg : string;
+    telefono  : string;
+    direccion  : string;
+    fechaNac  : string;
+    id_ubigeo  : Ubigeo;
 }

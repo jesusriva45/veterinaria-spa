@@ -31,14 +31,14 @@
                 </thead>
                 <tbody>
                     <tr *ngFor="let producto of productos; let i = index">
-                        <th class="align-middle">{{ producto.id_producto }}</th>
+                        <th class="align-middle">{{ producto.idproducto }}</th>
                         <th class="align-middle"><img class="img-fluid me-auto ms-auto" src="../../../../assets/img/antipulgas.png" width="50px" height="50px"></th>
                         <th class="align-middle">{{ producto.nombre }}</th>
                         <th class="align-middle">{{ producto.precio }}</th>
-                        <th class="align-middle">{{ producto.marca.nombre }}</th>
+                        <th class="align-middle">gaaa</th>
 
                         <td class="align-middle"><button type="button" class="btn btn-primary crud btn-outline">Detalle</button></td>
-                        <td><button type="button" class="btn btn-warning align-middle crud" value="Detalle" (click)="openModalCrud(mymodal,'editar',producto.id_producto)">Editar</button></td>
+                        <td><button type="button" class="btn btn-warning align-middle crud" value="Detalle" (click)="openModalCrud(mymodal,'editar',producto.idproducto)">Editar</button></td>
 
                         <td class="align-middle"><button type="button" class="btn btn-danger btn-sm px-3">
                             X
@@ -81,12 +81,12 @@
 
 
 
-                            <input type="text" class="form-control form-input" [(ngModel)]="producto.id_producto" formControlName="IdProducto" required hidden>
+
 
 
                             <div class="form-group col-12">
 
-                                <input type="text" class="form-input" [(ngModel)]="producto.id_producto" formControlName="IdProducto" required hidden>
+                                <input type="text" class="form-input" [(ngModel)]="producto.idproducto" formControlName="IdProducto" required hidden>
                                 <div class="form-control-feedback" *ngIf="IdProducto.errors && (IdProducto.dirty || IdProducto.touched)">
                                     <p class="alert alert-danger" role="alert" *ngIf="IdProducto.errors.required">Codigo incorrecto</p>
                                 </div>
@@ -99,7 +99,7 @@
                                 <input type="text" [ngClass]="{
                                     'is-invalid': (Nombre.errors?.required && submitted) || ((Nombre.dirty || Nombre.touched) && Nombre.invalid ),
                                     'is-valid': Nombre.valid && (Nombre.dirty || Nombre.touched)
-                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.nombre" formControlName="Nombre" required>
+                                  }" class="form-control" [(ngModel)]="producto.nombre" formControlName="Nombre" required>
 
                                 <div class="m-0">
                                     <p class="alert-danger" *ngIf=" (Nombre.errors && Nombre.errors.required && submitted) || ((Nombre.dirty || Nombre.touched) && Nombre.invalid )">Nombre is required</p>
@@ -114,7 +114,7 @@
                                 <textarea [ngClass]="{
                                     'is-invalid': (Descripcion.errors?.required && submitted) || ((Descripcion.dirty || Descripcion.touched) && Descripcion.invalid ),
                                     'is-valid': Descripcion.valid && (Descripcion.dirty || Descripcion.touched)
-                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.descripcion" formControlName="Descripcion" required></textarea>
+                                  }" class="form-control" [(ngModel)]="producto.descripcion" formControlName="Descripcion" required></textarea>
                                 <div class="m-0">
                                     <p class="alert-danger" *ngIf=" (Descripcion.errors?.required && submitted) || ((Descripcion.dirty || Descripcion.touched) && Descripcion.invalid )">Descripcion is required</p>
                                     <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
@@ -127,7 +127,7 @@
                                 <textarea [ngClass]="{
                                     'is-invalid': (Indicaciones.errors?.required && submitted) || ((Indicaciones.dirty || Indicaciones.touched) && Indicaciones.invalid ),
                                     'is-valid': Indicaciones.valid && (Indicaciones.dirty || Indicaciones.touched)
-                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.indicaciones" formControlName="Indicaciones" required></textarea>
+                                  }" class="form-control" [(ngModel)]="producto.indicaciones" formControlName="Indicaciones" required></textarea>
                                 <div class="m-0">
                                     <p class="alert-danger" *ngIf=" (Indicaciones.errors?.required && submitted) || ((Indicaciones.dirty || Indicaciones.touched) && Indicaciones.invalid )">Descripcion is required</p>
                                     <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
@@ -140,7 +140,7 @@
                                 <input type="text" [ngClass]="{
                                     'is-invalid': (Precio.errors?.required && submitted) || ((Precio.dirty || Precio.touched) && Precio.invalid ),
                                     'is-valid': Precio.valid && (Precio.dirty || Precio.touched)
-                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.precio" formControlName="Precio" required>
+                                  }" class="form-control" [(ngModel)]="producto.precio" formControlName="Precio" required>
 
                                 <div class="m-0">
                                     <p class="alert-danger" *ngIf=" (Precio.errors?.required && submitted) || ((Precio.dirty || Precio.touched) && Precio.invalid )">Precio is required</p>
@@ -152,8 +152,8 @@
                                 <label>Serie</label>
                                 <input type="text" [ngClass]="{
                                     'is-invalid': (Serie.errors?.required && submitted) || ((Serie.dirty || Serie.touched) && Serie.invalid ),
-                                    'is-valid': Precio.valid && (Precio.dirty || Precio.touched)
-                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.serie" formControlName="Serie" required>
+                                    'is-valid': Serie.valid && (Serie.dirty || Serie.touched)
+                                  }" class="form-control" [(ngModel)]="producto.serie" formControlName="Serie" required>
 
                                 <div class="m-0">
                                     <p class="alert-danger" *ngIf=" (Serie.errors?.required && submitted) || ((Serie.dirty || Serie.touched) && Serie.invalid )">Serie is required</p>
@@ -166,10 +166,24 @@
                                 <input type="text" [ngClass]="{
                                     'is-invalid': (Stock.errors?.required && submitted) || ((Stock.dirty || Stock.touched) && Stock.invalid ),
                                     'is-valid': Stock.valid && (Stock.dirty || Stock.touched)
-                                  }" class="form-control" id="nomForm" [(ngModel)]="producto.stock" formControlName="Stock" required>
+                                  }" class="form-control" [(ngModel)]="producto.stock" formControlName="Stock" required>
 
                                 <div class="m-0">
                                     <p class="alert-danger" *ngIf=" (Stock.errors?.required && submitted) || ((Stock.dirty || Stock.touched) && Stock.invalid )">Stock is required</p>
+                                    <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
+                                </div>
+                            </div>
+
+
+                            <div class="form-group col-12">
+                                <label>foto</label>
+                                <input type="text" [ngClass]="{
+                                    'is-invalid': (foto.errors?.required && submitted) || ((foto.dirty || foto.touched) && foto.invalid ),
+                                    'is-valid': foto.valid && (foto.dirty || foto.touched)
+                                  }" class="form-control" [(ngModel)]="producto.foto1" formControlName="foto" required>
+
+                                <div class="m-0">
+                                    <p class="alert-danger" *ngIf=" (foto.errors?.required && submitted) || ((foto.dirty || foto.touched) && foto.invalid )">Stock is required</p>
                                     <!--div class="alert alert-success" *ngIf="Nombres.valid && (Nombres.dirty && Nombres.touched)">Campo valido</div-->
                                 </div>
                             </div>
@@ -206,8 +220,8 @@
                                         <option [ngValue]="undefined" selected>--- selecionar un proveedor ---</option>
                                         <option *ngFor="let prov of proveedor" [ngValue]="prov" > {{ prov.razon_social  }}</option>
                                 </select>
-                                <div class="" *ngIf="IdProveedor.errors && (IdProveedor.dirty || IdProveedor.touched)">
-                                    <p class="alert alert-danger" *ngIf="IdProveedor.errors.required">Proveedor is required</p>
+                                <div class="">
+                                    <p class="alert-danger" *ngIf="(IdProveedor.errors?.required && submitted) || ((IdProveedor.dirty || IdProveedor.touched) && IdProveedor.invalid )">Proveedor is required</p>
 
                                 </div>
                             </div>
@@ -220,13 +234,13 @@
                                 <select class="w-100" [(ngModel)]="producto.categoria" [compareWith]="compareCategoria" formControlName="IdCategoria" required>
                                         
                                         <option [ngValue]="undefined" selected>--- selecionar una categoria ---</option>
-                                        <option *ngFor="let cate of categoria" [ngValue]="cate" > {{ cate.tipo_categoria  }}</option>
+                                        <option *ngFor="let cate of categoria" [ngValue]="cate" > {{ cate.descripcion  }}</option>
                                     
                                 </select>
 
 
-                                <div class="" *ngIf="IdCategoria.errors && (IdCategoria.dirty || IdCategoria.touched)">
-                                    <p class="alert alert-danger" *ngIf="IdCategoria.errors.required">Categoria is required</p>
+                                <div class="">
+                                    <p class="alert-danger" *ngIf="(IdCategoria.errors?.required && submitted) || ((IdCategoria.dirty || IdCategoria.touched) && IdCategoria.invalid )">Categoria is required</p>
 
                                 </div>
                             </div>
@@ -241,7 +255,7 @@
 
 
 
-                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(producto.id_producto == 0) else elseBlock">Registrar</button>
+                            <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(producto.idproducto == 0) else elseBlock">Registrar</button>
 
                             <ng-template #elseBlock>
                                 <button type="" role="button" class="acept btn m-4" [disabled]="myform.invalid">Actualizar</button>

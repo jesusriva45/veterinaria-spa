@@ -42,7 +42,10 @@ export class UsuariosComponent implements OnInit {
   IdUsuario: FormControl;
   Nombres: FormControl;
   Apellidos: FormControl;
-  email: FormControl;
+  Dni: FormControl;
+  Telef: FormControl;
+  Direc: FormControl;
+  Correo: FormControl;
   FechaNac: FormControl;
   id_ubi: FormControl;
 
@@ -76,8 +79,11 @@ export class UsuariosComponent implements OnInit {
     this.IdUsuario = new FormControl('', [Validators.nullValidator]);
     this.Nombres = new FormControl('', [Validators.required]);
     this.Apellidos = new FormControl('', [Validators.required]);
-    this.id_ubi = new FormControl(null);
-    this.email = new FormControl('', [
+    this.Dni = new FormControl('', [Validators.required,Validators.pattern('[0-9]{8}')]);
+    this.Telef = new FormControl('', [Validators.required]);
+    this.Direc = new FormControl('', [Validators.required]);
+    this.id_ubi = new FormControl('', [Validators.required]);
+    this.Correo = new FormControl('', [
       Validators.required,
       Validators.pattern(
         '^[a-zA-Z]{1,}([.]{1})?[a-zA-Z]{1,}[@]{1}[a-zA-Z]{1,}[.]{1}[a-z]{2,5}([.][a-z]{2,3})?$'
@@ -89,10 +95,13 @@ export class UsuariosComponent implements OnInit {
   createForm() {
     this.myform = new FormGroup({
       name: new FormGroup({
+        IdUsuario: this.IdUsuario,
         Nombres: this.Nombres,
         Apellidos: this.Apellidos,
-        IdUsuario: this.IdUsuario,
-        email: this.email,
+        Dni: this.Dni,
+        Telef: this.Telef,
+        Direc: this.Direc,
+        Correo: this.Correo,
         FechaNac: this.FechaNac,
         id_ubi: this.id_ubi,
       }),
@@ -119,21 +128,21 @@ export class UsuariosComponent implements OnInit {
     if (accion == 'detalle') {
       //this.titulo = "Detalles de Usuario"
 
-      console.log(this.usuario.id_usuario);
+      console.log(this.usuario.idusuario);
       this.getUsuarioId(idUsario);
-      //this.getUbigeo();
+      this.getUbigeo();
       for (let j = 0; j < this.input.length; j++) {
         this.input[j].setAttribute('disabled', '');
       }
     } else if (accion == 'editar') {
       this.titulo = 'Actualizar Información';
-      this.usuario.id_usuario = idUsario;
+      this.usuario.idusuario = idUsario;
       this.getUsuarioId(idUsario);
-      //this.getUbigeo();
-      console.log(this.usuario.id_usuario);
+      this.getUbigeo();
+      console.log(this.usuario.idusuario);
     } else if (accion == 'agregar') {
       this.getUbigeo();
-      this.usuario.id_usuario = 0;
+      this.usuario.idusuario = 0;
       this.titulo = 'Registro de Usuario';
       //this.modalAgregar();
       //this.myform.clearValidators();
@@ -158,7 +167,7 @@ export class UsuariosComponent implements OnInit {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
     return t1 === null || t2 === null || t1 === undefined || t2 === undefined
       ? false
-      : t1.id_ubigeo === t2.id_ubigeo;
+      : t1.idubigeo === t2.idubigeo;
   }
 
   /*compareFn(o1: Ubigeo, o2: Ubigeo): boolean {
@@ -195,7 +204,7 @@ export class UsuariosComponent implements OnInit {
             confirmButtonText: 'Si, registrarse',
           })
           .then((result) => {
-            if (this.usuario.id_usuario === 0) {
+            if (this.usuario.idusuario === 0) {
               if (result.isConfirmed) {
                 swal.fire(
                   'Registro Exitoso...!',
@@ -206,8 +215,8 @@ export class UsuariosComponent implements OnInit {
                 this.modalService.dismissAll();
               }
             } else if (
-              this.usuario.id_usuario != 0 &&
-              this.usuario.id_usuario > 0
+              this.usuario.idusuario != 0 &&
+              this.usuario.idusuario > 0
             ) {
               if (result.isConfirmed) {
                 swal.fire(

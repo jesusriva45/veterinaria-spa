@@ -49,7 +49,7 @@ export class UsuarioService {
 
   update(usuario: Usuario): Observable<Usuario> {
     return this.http.put<Usuario>(
-      `${this.urlEndPoint}/${usuario.id_usuario}`,
+      `${this.urlEndPoint}/${usuario.idusuario}`,
       usuario,
       { headers: this.httpHeaders }
     );

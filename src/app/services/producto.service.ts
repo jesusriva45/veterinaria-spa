@@ -13,7 +13,7 @@ import { Marca } from '../models/marca';
   providedIn: 'root',
 })
 export class ProductoService {
-  
+
   private urlEndPoint: string = 'http://localhost:8080/api/productos';
 
 
@@ -46,7 +46,7 @@ export class ProductoService {
 
   update(producto: Producto): Observable<Producto> {
     return this.http.put<Producto>(
-      `${this.urlEndPoint}/${producto.id_producto}`,
+      `${this.urlEndPoint}/${producto.idproducto}`,
       producto,
       { headers: this.httpHeaders }
     );
@@ -57,6 +57,7 @@ export class ProductoService {
       headers: this.httpHeaders,
     });
   }
+
 
   getProductoProPrecio(precioMin, precioMax): Observable<Producto[]> {
     return this.http.get<Producto[]>(
