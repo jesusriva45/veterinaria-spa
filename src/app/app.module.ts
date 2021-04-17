@@ -1,8 +1,7 @@
 import { NgModule, CUSTOM_ELEMENTS_SCHEMA } from '@angular/core';
 import { BrowserModule } from '@angular/platform-browser';
 
-import * as mdb from 'mdb-ui-kit'; // lib
-import { Input } from 'mdb-ui-kit'; // module
+import { AngularEditorModule } from '@kolkov/angular-editor';
 
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
@@ -71,6 +70,7 @@ import { BrowserAnimationsModule } from '@angular/platform-browser/animations';
     BrowserAnimationsModule,
     CommonModule,
     ScrollingModule,
+    AngularEditorModule,
   ],
   providers: [NgbModule],
   bootstrap: [AppComponent],

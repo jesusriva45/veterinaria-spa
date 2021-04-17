@@ -13,7 +13,7 @@ export class Producto {
   foto1: string;
   foto2: string;
   foto3: string;
-  idmarca: Marca;
-  idproveedor: Proveedor;
-  idcategoria_producto: ProCategoria;
+  marca: Marca;
+  proveedor: Proveedor;
+  categoria: ProCategoria;
 }

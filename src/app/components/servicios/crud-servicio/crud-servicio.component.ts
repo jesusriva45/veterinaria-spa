@@ -7,6 +7,8 @@ import { Servicio } from 'src/app/models/servicio';
 import { ServicioService } from 'src/app/services/servicio.service';
 import swal from 'sweetalert2';
 
+import { AngularEditorConfig } from '@kolkov/angular-editor';
+
 @Component({
   selector: 'app-crud-servicio',
   templateUrl: './crud-servicio.component.html',
@@ -52,15 +54,51 @@ export class CrudServicioComponent implements OnInit {
 
   //------------------------ EDITOR DE TEXTO - DESCRIPCION ----------------------
 
-  onChange($event: any): void {
-    console.log('onChange');
-    //this.log += new Date() + "<br />";
-  }
+  htmlContent = '';
+  htmlContent2 = '';
 
-  onPaste($event: any): void {
-    console.log('onPaste');
-    //this.log += new Date() + "<br />";
-  }
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: true,
+    height: 'auto',
+    minHeight: '0',
+    maxHeight: 'auto',
+    width: 'auto',
+    minWidth: '0',
+    translate: 'yes',
+    enableToolbar: true,
+    showToolbar: true,
+    placeholder: 'Enter text here...',
+    defaultParagraphSeparator: '',
+    defaultFontName: '',
+    defaultFontSize: '',
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+    ],
+    customClasses: [
+      {
+        name: 'quote',
+        class: 'quote',
+      },
+      {
+        name: 'redText',
+        class: 'redText',
+      },
+      {
+        name: 'titleText',
+        class: 'titleText',
+        tag: 'h1',
+      },
+    ],
+    uploadUrl: 'v1/image',
+    uploadWithCredentials: false,
+    sanitize: true,
+    toolbarPosition: 'top',
+    toolbarHiddenButtons: [['bold', 'italic'], ['fontSize']],
+  };
 
   //------------------------ VALIDACION DE FORMULARIO ---------------------------
 

@@ -6,12 +6,14 @@ import { ProductoService } from '../../../services/producto.service';
 import { Producto } from '../../../models/producto';
 
 import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
+import { BsModalService, BsModalRef } from 'ngx-bootstrap/modal';
 
 import swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
 import { ProCategoria } from 'src/app/models/pro-categoria';
 import { Proveedor } from 'src/app/models/proveedor';
 import { Marca } from 'src/app/models/marca';
+import { AngularEditorConfig } from '@kolkov/angular-editor';
 
 @Component({
   selector: 'app-crud-producto',
@@ -21,11 +23,11 @@ import { Marca } from 'src/app/models/marca';
 export class CrudProductoComponent implements OnInit {
   productos: Producto[] = [];
 
-  categoria: ProCategoria[] = [];
+  categoria: ProCategoria[];
 
-  proveedor: Proveedor[] = [];
+  proveedor: Proveedor[];
 
-  marca: Marca[] = [];
+  marca: Marca[];
 
   producto: Producto = new Producto();
 
@@ -72,7 +74,75 @@ export class CrudProductoComponent implements OnInit {
     this.productoService
       .getProductos()
       .subscribe((productos) => (this.productos = productos));
+    this.getMarca();
   }
+
+  //------------------------ EDITOR DE TEXTO - DESCRIPCION ----------------------
+
+  ProDescrip: string;
+  ProNom: string;
+  ProMarca: string;
+  modalDetalle(producto: Producto) {
+    this.getProducto(producto.idproducto);
+    this.ProDescrip = `${producto.descripcion}`;
+    this.ProNom = `${producto.nombre}`;
+    this.ProMarca = `${producto.marca.nombre}`;
+  }
+
+  editorConfig: AngularEditorConfig = {
+    editable: true,
+    spellcheck: false,
+    height: '200px',
+    width: '100%',
+
+    fonts: [
+      { class: 'arial', name: 'Arial' },
+      { class: 'times-new-roman', name: 'Times New Roman' },
+      { class: 'calibri', name: 'Calibri' },
+      { class: 'comic-sans-ms', name: 'Comic Sans MS' },
+      { class: 'Algerian', name: 'Algerian' },
+      { class: 'MT Extra', name: 'MT Extra' },
+      { class: 'Cooper Black', name: 'Cooper Black' },
+    ],
+
+    toolbarHiddenButtons: [
+      [
+        //'undo',
+        //'redo',
+        //'bold',
+        //'italic',
+        //'underline',
+        //'strikeThrough',
+        'subscript',
+        'superscript',
+        'justifyLeft',
+        'justifyCenter',
+        'justifyRight',
+        'justifyFull',
+        //'indent',
+        //'outdent',
+        //'insertUnorderedList',
+        //'insertOrderedList',
+        //'heading',
+        //'fontName',
+      ],
+      [
+        //'fontSize',
+        //'textColor',
+        'backgroundColor',
+        'customClasses',
+        //'link',
+        //'unlink',
+        'insertImage',
+        'insertVideo',
+        'insertHorizontalRule',
+        //'removeFormat',
+        //'toggleEditorMode',
+      ],
+    ],
+  };
+
+  //------------------------ VALIDACION DE FORMULARIO ---------------------------
 
   //------------------------ VALIDACION DE FORMULARIO ---------------------------
 
@@ -110,11 +180,11 @@ export class CrudProductoComponent implements OnInit {
 
   //------------------ RENDERIZADO DE MODAL PARA CRUD DE PRODUCTOS---------------------------------
 
-  openModalCrud(
-    targetModal: Component,
-    accion: string,
-    idProducto?: number
-  ): void {
+  modalAgre(producto: Producto) {
+    producto.idproducto = 0;
+  }
+
+  openModalCrud(targetModal, accion: string, idProducto?: number): void {
     this.createFormControls();
     this.createForm();
 
@@ -122,6 +192,7 @@ export class CrudProductoComponent implements OnInit {
       centered: true,
       animation: true,
       backdropClass: 'modal-backdrop',
+      ariaLabelledBy: 'modal-basic-title',
       size: 'xl',
       keyboard: false,
     });
