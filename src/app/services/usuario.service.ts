@@ -1,6 +1,6 @@
 import { Injectable } from '@angular/core';
 import { Usuario } from '../models/usuario';
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Ubigeo } from '../models/ubigeo';
@@ -9,15 +9,15 @@ import { Ubigeo } from '../models/ubigeo';
   providedIn: 'root',
 })
 export class UsuarioService {
-  private urlEndPoint: string = 'http://localhost:8080/api/usuarios';
-  private urlEndPointUbigeo: string = 'http://localhost:8080/api/ubigeo';
+  private urlEndPoint: string = 'http://localhost:8090/api/usuarios';
+  private urlEndPointUbigeo: string = 'http://localhost:8090/api/ubigeo';
 
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:8080',
+    'Access-Control-Allow-Origin': 'http://localhost:8090',
     'Access-Control-Allow-Credentials': 'true',
-    GET: 'POST',
+    'GET': 'POST',
   });
 
   constructor(private http: HttpClient) {}

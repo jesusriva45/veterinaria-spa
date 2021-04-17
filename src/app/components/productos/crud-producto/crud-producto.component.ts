@@ -1,6 +1,6 @@
 import { Component, OnInit } from '@angular/core';
 
-import { Router, ActivatedRoute } from '@angular/router';
+import { Router } from '@angular/router';
 import { ProductoService } from '../../../services/producto.service';
 
 import { Producto } from '../../../models/producto';
@@ -9,7 +9,7 @@ import { NgbModal } from '@ng-bootstrap/ng-bootstrap';
 
 import swal from 'sweetalert2';
 import { FormGroup, FormControl, Validators } from '@angular/forms';
-import { Categoria } from 'src/app/models/categoria';
+import { ProCategoria } from 'src/app/models/pro-categoria';
 import { Proveedor } from 'src/app/models/proveedor';
 import { Marca } from 'src/app/models/marca';
 
@@ -21,16 +21,13 @@ import { Marca } from 'src/app/models/marca';
 export class CrudProductoComponent implements OnInit {
   productos: Producto[] = [];
 
-  categoria: Categoria[] = []; 
+  categoria: ProCategoria[] = [];
 
-  proveedor: Proveedor[] = [];  
+  proveedor: Proveedor[] = [];
 
   marca: Marca[] = [];
-  
 
   producto: Producto = new Producto();
-
-  
 
   titulo: string = 'Agregar Usuario';
 
@@ -62,14 +59,12 @@ export class CrudProductoComponent implements OnInit {
   constructor(
     private productoService: ProductoService,
     private router: Router,
-    private modalService: NgbModal,
-    private activatedRoute: ActivatedRoute
+    private modalService: NgbModal
   ) {
-    this.titulo;   
+    this.titulo;
   }
 
   ngOnInit(): void {
-   
     this.productoService
       .getProductos()
       .subscribe((productos) => (this.productos = productos));
@@ -148,13 +143,11 @@ export class CrudProductoComponent implements OnInit {
 
       console.log(this.producto.idproducto);
     } else if (accion == 'agregar') {
-
-
       this.getMarca();
       this.getCategoria();
-      this.getProveedor();      
+      this.getProveedor();
       this.producto.idproducto = 0;
-      this.titulo = 'Registro de Usuario';      
+      this.titulo = 'Registro de Producto';
       //this.modalAgregar();
       //this.myform.clearValidators();
     }
@@ -173,43 +166,65 @@ export class CrudProductoComponent implements OnInit {
   //---------*********************************************************------------
 
   //----------------------- COMPARACION DE ID DE CATEGORIA - PROVEEDOR - MARCA -----------
- 
+
   compareMarca(c1: Marca, c2: Marca): boolean {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
 
-    if ((c1 === null && c2 === null) || (c1 === undefined && c2 === undefined)) {
+    if (
+      (c1 === null && c2 === null) ||
+      (c1 === undefined && c2 === undefined)
+    ) {
       return true;
-    } else if (c1 === null || c2 === null || c1 === undefined || c2 === undefined)
-     return false;
-     else{
-       return c1.idmarca === c2.idmarca;
-     }
+    } else if (
+      c1 === null ||
+      c2 === null ||
+      c1 === undefined ||
+      c2 === undefined
+    )
+      return false;
+    else {
+      return c1.idmarca === c2.idmarca;
+    }
   }
 
-  compareCategoria(c1: Categoria, c2: Categoria): boolean {
+  compareCategoria(c1: ProCategoria, c2: ProCategoria): boolean {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
 
-    if ((c1 === null && c2 === null) || (c1 === undefined && c2 === undefined)) {
+    if (
+      (c1 === null && c2 === null) ||
+      (c1 === undefined && c2 === undefined)
+    ) {
       return true;
-    } else if (c1 === null || c2 === null || c1 === undefined || c2 === undefined)
-     return false;
-     else{
-       return c1.id_categoria_pro === c2.id_categoria_pro;
-     }
+    } else if (
+      c1 === null ||
+      c2 === null ||
+      c1 === undefined ||
+      c2 === undefined
+    )
+      return false;
+    else {
+      return c1.idcategoria === c2.idcategoria;
+    }
   }
 
   compareProveedor(p1: Proveedor, p2: Proveedor): boolean {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
 
-    if ((p1 === null && p2 === null) || (p1 === undefined && p2 === undefined)) {
+    if (
+      (p1 === null && p2 === null) ||
+      (p1 === undefined && p2 === undefined)
+    ) {
       return true;
-    } else if(p1 === null || p2 === null || p1 === undefined || p2 === undefined){
+    } else if (
+      p1 === null ||
+      p2 === null ||
+      p1 === undefined ||
+      p2 === undefined
+    ) {
       return false;
+    } else {
+      return p1.id_proveedor === p2.id_proveedor;
     }
-    
-    else {
-      return p1.id_proveedor === p2.id_proveedor;}
-
   }
 
   //--------------------- VERIFICACION DE DATOS AL DAR SUBMIT AL FORMULARIO ---------------
@@ -271,7 +286,7 @@ export class CrudProductoComponent implements OnInit {
 
   //----------------------- CRUD DE PRODUCTOS ---------------------------
   insert(): void {
-    this.productoService.insert(this.producto).subscribe((response) => {      
+    this.productoService.insert(this.producto).subscribe((response) => {
       let currentUrl = this.router.url;
       this.router.navigateByUrl('/', { skipLocationChange: true }).then(() => {
         this.router.navigate([currentUrl]);
@@ -290,6 +305,35 @@ export class CrudProductoComponent implements OnInit {
     });
   }
 
+  delete(producto: Producto): void {
+    swal
+      .fire({
+        title: `Seguro desea eliminar el producto ${producto.nombre}... ?`,
+        text: "You won't be able to revert this!",
+        icon: 'warning',
+        showCancelButton: true,
+        cancelButtonText: 'Cancelar',
+        confirmButtonColor: '#3085d6',
+        cancelButtonColor: '#d33',
+        confirmButtonText: 'Si, eliminar',
+      })
+      .then((result) => {
+        if (result.isConfirmed) {
+          this.productoService
+            .delete(producto.idproducto)
+            .subscribe((response) => {
+              this.productos = this.productos.filter(
+                (prod) => prod != producto
+              );
+              swal.fire(
+                `El Producto ${this.producto.nombre} ha sido eliminado...!`,
+                'success'
+              );
+            });
+        }
+      });
+  }
+
   getProducto(idProducto) {
     this.productoService
       .getProducto(idProducto)
@@ -297,9 +341,7 @@ export class CrudProductoComponent implements OnInit {
   }
 
   getMarca() {
-    this.productoService
-      .getMarca()
-      .subscribe((marca) => (this.marca = marca));
+    this.productoService.getMarca().subscribe((marca) => (this.marca = marca));
   }
 
   getCategoria() {

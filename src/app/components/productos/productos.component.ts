@@ -35,7 +35,7 @@ import {
 
     ngOnInit(): void {
       
-      this.getProductoXPrecio(8,11);
+      this.getProductoXPrecio(12,14);
 
     }
 

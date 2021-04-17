@@ -49,7 +49,7 @@
                         <td>{{ usuario.ubigeo.distrito }}</td>
                         <td><button type="button" class="btn btn-primary crud" value="Detalle" (click)="openModalCrud(mymodal,'detalle',usuario.idusuario)">Detalle</button></td>
                         <td><button type="button" class="btn btn-warning crud" value="Editar" (click)="openModalCrud(mymodal,'editar',usuario.idusuario)">Editar</button></td>
-                        <td><button type="button" class="btn btn-danger crud" value="Eliminar">Eliminar</button></td>
+                        <td><button type="button" class="btn btn-danger crud" value="Eliminar" (click)="delete(usuario)">Eliminar</button></td>
                     </tr>
 
                 </tbody>

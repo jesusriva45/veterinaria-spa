@@ -11,8 +11,7 @@ import swal from 'sweetalert2';
 import {
   FormGroup,
   FormControl,
-  Validators,
-  FormGroupDirective,
+  Validators
 } from '@angular/forms';
 
 import { Ubigeo } from '../../models/ubigeo';
@@ -259,6 +258,33 @@ export class UsuariosComponent implements OnInit {
       });
       // this.router.navigate([window.location.reload()]);
     });
+  }
+
+
+  delete(usuario: Usuario):void{
+  
+    swal
+    .fire({
+      title: `Seguro desea eliminar al usuario ${usuario.nombres} ${usuario.apellidos}...`,
+      text: "You won't be able to revert this!",
+      icon: 'warning',
+      showCancelButton: true,
+      cancelButtonText: 'Cancelar',
+      confirmButtonColor: '#3085d6',
+      cancelButtonColor: '#d33',
+      confirmButtonText: 'Si, eliminar',
+    }).then((result)=>{
+         if(result.isConfirmed){
+          this.usuarioService.delete(usuario.idusuario).subscribe((response)=>{
+              this.usuarios = this.usuarios.filter(usu => usu != usuario)
+              swal.fire(
+                `${this.usuario.nombres} ha sido eliminado...!`,            
+                'success'
+                )
+          })
+         }
+    })
+
   }
 
   getUbigeo() {

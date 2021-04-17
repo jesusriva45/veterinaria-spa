@@ -2,28 +2,25 @@ import { Injectable } from '@angular/core';
 
 import { Producto } from '../models/producto';
 
-import { of, Observable } from 'rxjs';
+import { Observable } from 'rxjs';
 import { HttpClient, HttpHeaders } from '@angular/common/http';
 import { map } from 'rxjs/operators';
 import { Proveedor } from '../models/proveedor';
-import { Categoria } from '../models/categoria';
+import { ProCategoria } from '../models/pro-categoria';
 import { Marca } from '../models/marca';
 
 @Injectable({
   providedIn: 'root',
 })
 export class ProductoService {
+  private urlEndPoint: string = 'http://localhost:8090/api/productos';
 
-  private urlEndPoint: string = 'http://localhost:8080/api/productos';
-
-
-
-  private urlEndPoint2: string = 'http://localhost:8080/api/productosPrecio';
+  private urlEndPoint2: string = 'http://localhost:8090/api/productosPrecio';
 
   private httpHeaders = new HttpHeaders({
     'Content-Type': 'application/json',
     Accept: 'application/json',
-    'Access-Control-Allow-Origin': 'http://localhost:8080',
+    'Access-Control-Allow-Origin': 'http://localhost:8090',
     'Access-Control-Allow-Credentials': 'true',
     GET: 'POST',
   });
@@ -58,7 +55,6 @@ export class ProductoService {
     });
   }
 
-
   getProductoProPrecio(precioMin, precioMax): Observable<Producto[]> {
     return this.http.get<Producto[]>(
       `${this.urlEndPoint2}/${precioMin}/${precioMax}`
@@ -76,7 +72,7 @@ export class ProductoService {
     return this.http.get<Proveedor[]>(`${this.urlEndPoint}/proveedor`);
   }
 
-  getCategoria(): Observable<Categoria[]> {
-    return this.http.get<Categoria[]>(`${this.urlEndPoint}/categoria`);
+  getCategoria(): Observable<ProCategoria[]> {
+    return this.http.get<ProCategoria[]>(`${this.urlEndPoint}/categoria`);
   }
 }
