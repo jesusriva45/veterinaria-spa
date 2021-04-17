@@ -26,7 +26,7 @@ export class CrudServicioComponent implements OnInit {
   Nombre: FormControl;
   Precio: FormControl;
   Descripcion: FormControl;
-  FechaAten: FormControl;
+  //FechaAten: FormControl;
   IdCategoria: FormControl;
 
   //----------- VISIBILIDAD DE MENSAJE DE ERROR DE CAMPOS DE FORMULARIO ----------------
@@ -50,6 +50,18 @@ export class CrudServicioComponent implements OnInit {
       .subscribe((data) => (this.servicios = data));
   }
 
+  //------------------------ EDITOR DE TEXTO - DESCRIPCION ----------------------
+
+  onChange($event: any): void {
+    console.log('onChange');
+    //this.log += new Date() + "<br />";
+  }
+
+  onPaste($event: any): void {
+    console.log('onPaste');
+    //this.log += new Date() + "<br />";
+  }
+
   //------------------------ VALIDACION DE FORMULARIO ---------------------------
 
   createFormControls() {
@@ -57,7 +69,7 @@ export class CrudServicioComponent implements OnInit {
     this.Nombre = new FormControl('', Validators.required);
     this.Precio = new FormControl('', Validators.required);
     this.Descripcion = new FormControl('', Validators.required);
-    this.FechaAten = new FormControl('', Validators.required);
+    //this.FechaAten = new FormControl('', Validators.required);
     this.IdCategoria = new FormControl('', Validators.required);
   }
 
@@ -68,7 +80,7 @@ export class CrudServicioComponent implements OnInit {
         Nombre: this.Nombre,
         Precio: this.Precio,
         Descripcion: this.Descripcion,
-        FechaAten: this.FechaAten,
+        //FechaAten: this.FechaAten,
         IdCategoria: this.IdCategoria,
       }),
     });
@@ -104,14 +116,13 @@ export class CrudServicioComponent implements OnInit {
         this.input[j].setAttribute('disabled', '');
       }
     } else if (accion == 'editar') {
-      this.titulo = 'Actualizar Información';
+      //this.titulo = 'Actualizar Información';
 
       this.getServicio(idServicio);
 
       this.getCategoria();
     } else if (accion == 'agregar') {
       this.getCategoria();
-
       this.servicio.idservicio = 0;
       this.titulo = 'Registro de Servicio';
       //this.modalAgregar();
@@ -125,7 +136,7 @@ export class CrudServicioComponent implements OnInit {
     this.myform.reset();
   }
 
-  compareMarca(c1: SerCategoria, c2: SerCategoria): boolean {
+  compareCategoria(c1: SerCategoria, c2: SerCategoria): boolean {
     //console.log(t1.id_ubigeo + t2.id_ubigeo);
 
     if (
@@ -172,12 +183,12 @@ export class CrudServicioComponent implements OnInit {
             cancelButtonColor: '#d33',
             confirmButtonText: 'Si, registrarse',
           })
-          .then((result) => {
+          .then((respuestaDeConfirmacion) => {
             if (this.servicio.idservicio === 0) {
-              if (result.isConfirmed) {
+              if (respuestaDeConfirmacion.isConfirmed) {
                 swal.fire(
                   'Registro Exitoso...!',
-                  `${this.servicio.nombre} producto agregado correctamente`,
+                  `${this.servicio.nombre} servicio agregado correctamente`,
                   'success'
                 );
                 this.insert();
@@ -187,7 +198,7 @@ export class CrudServicioComponent implements OnInit {
               this.servicio.idservicio != 0 &&
               this.servicio.idservicio > 0
             ) {
-              if (result.isConfirmed) {
+              if (respuestaDeConfirmacion.isConfirmed) {
                 swal.fire(
                   'Update Exitoso...!',
                   `${this.servicio.nombre} los datos se actualizaron correctamente`,

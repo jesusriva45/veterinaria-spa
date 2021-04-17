@@ -69,15 +69,7 @@
 
                     <form id="form-producto" [formGroup]="myform" (ngSubmit)="verificarDatos()" class="row container me-auto ms-auto justify-content-center">
 
-
-
-
-
-
                         <fieldset class="col-12 p-5" formGroupName="name">
-
-
-
 
 
 
@@ -139,7 +131,7 @@
                             <div class="form-group col-12">
                                 <label>Categoria</label>
 
-                                <select class="w-100 " [(ngModel)]="servicio.serCategoria" [compareWith]="compareMarca" formControlName="IdCategoria" required>
+                                <select class="w-100 " [(ngModel)]="servicio.serCategoria" [compareWith]="compareCategoria" formControlName="IdCategoria" required>
                                        
                                         <option class="" [ngValue]="undefined" aria-hidden="aria-hidden" selected>--- selecionar una marca ---</option>
 
@@ -155,19 +147,12 @@
                                 </div>
                             </div>
 
-
-
-
-
-
                         </fieldset>
-
 
 
                         <div class="col-12 btn-submit">
 
                             <button type="button" id="Guerra" class="cancel btn  m-4" aria-label="Close" (click)="cerrarmodal()">Cancelar</button>
-
 
 
                             <button type="submit" id="Guerra" class="acept btn m-4" *ngIf="(servicio.idservicio == 0) else elseBlock">Registrar</button>

@@ -3,6 +3,7 @@ import { BrowserModule } from '@angular/platform-browser';
 
 import * as mdb from 'mdb-ui-kit'; // lib
 import { Input } from 'mdb-ui-kit'; // module
+
 import { ScrollingModule } from '@angular/cdk/scrolling';
 
 import { AppRoutingModule } from './app-routing.module';

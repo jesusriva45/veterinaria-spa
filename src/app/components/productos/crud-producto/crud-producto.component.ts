@@ -56,6 +56,10 @@ export class CrudProductoComponent implements OnInit {
 
   // button = document.getElementsByClassName("crud")
 
+  //----------------------------------------------------------
+
+  //---------------------------------------------------------
+
   constructor(
     private productoService: ProductoService,
     private router: Router,
